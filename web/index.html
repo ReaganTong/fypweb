@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberDefender - Game Content</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 扫描线效果 -->
+    <div class="scanline"></div>
+    
+    <!-- 主游戏容器 -->
+    <div id="game-container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="player-info">
+                <div class="player-avatar">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <div class="player-details">
+                    <h3 id="player-display-name">Cyber_Explorer</h3>
+                    <div class="xp-bar">
+                        <div class="xp-fill" style="width: 45%"></div>
+                        <span class="xp-text">Level 2 | 45/100 XP</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-title">
+                <h1><i class="fas fa-shield-alt"></i> CYBERDEFENDER</h1>
+                <p class="mission-tag">Mission: Phishing Awareness</p>
+            </div>
+            
+            <div class="game-stats">
+                <div class="stat-box">
+                    <i class="fas fa-star"></i>
+                    <span>Score: 850</span>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-medal"></i>
+                    <span>Badges: 3</span>
+                </div>
+                <button id="menu-btn" class="cyber-btn small">
+                    <i class="fas fa-bars"></i> Menu
+                </button>
+            </div>
+        </header>
+        
+        <!-- 游戏主要内容区域 -->
+        <main class="game-main">
+            <!-- 左侧：任务对话区域 -->
+            <section class="dialogue-section">
+                <div class="terminal-box dialogue-box">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <div class="terminal-title">MISSION CONTROL</div>
+                    </div>
+                    
+                    <!-- 角色对话 -->
+                    <div class="dialogue-content">
+                        <div class="message character-message">
+                            <div class="avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="character-name">Commander Byte</div>
+                                <div class="message-text">
+                                    Welcome back, Agent! We've detected a suspicious email targeting our network. 
+                                    This appears to be a phishing attempt. Your mission is to analyze it and decide the best course of action.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 邮件内容展示 -->
+                        <div class="email-preview">
+                            <div class="email-header">
+                                <div class="email-sender">
+                                    <strong>From:</strong> G00gle Support &lt;support@g00gle-security.com&gt;
+                                </div>
+                                <div class="email-subject">
+                                    <strong>Subject:</strong> URGENT: Your Account Has Been Compromised!
+                                </div>
+                            </div>
+                            <div class="email-body">
+                                <p>Dear User,</p>
+                                <p>We have detected unusual activity on your Google account. For your security, we have temporarily restricted your account.</p>
+                                <p><strong>Click here to verify your identity and restore access:</strong></p>
+                                <a href="#" class="suspicious-link">https://g00gle-security-verify.com/login</a>
+                                <p>If you do not verify within 24 hours, your account will be permanently suspended.</p>
+                                <p>Sincerely,<br>Google Security Team</p>
+                            </div>
+                        </div>
+                        
+                        <div class="message character-message">
+                            <div class="avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="character-name">Commander Byte</div>
+                                <div class="message-text">
+                                    What do you think, Agent? This looks serious, but something feels off. 
+                                    What action should we take?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 选项按钮 -->
+                    <div class="action-options" id="action-options">
+                        <button class="cyber-btn option-btn" data-action="inspect">
+                            <i class="fas fa-search"></i> Inspect Details
+                        </button>
+                        <button class="cyber-btn option-btn" data-action="report">
+                            <i class="fas fa-flag"></i> Report as Phishing
+                        </button>
+                        <button class="cyber-btn option-btn dangerous" data-action="click">
+                            <i class="fas fa-exclamation-triangle"></i> Click the Link
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 反馈区域 -->
+                <div class="feedback-box terminal-box" id="feedback-box">
+                    <div class="feedback-header">
+                        <i class="fas fa-lightbulb"></i> CYBERSECURITY INSIGHT
+                    </div>
+                    <div class="feedback-content" id="feedback-content">
+                        <p>Select an action above to learn about phishing detection.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 右侧：任务信息和MCQ区域 -->
+            <section class="info-section">
+                <!-- 当前任务信息 -->
+                <div class="mission-info terminal-box">
+                    <h3><i class="fas fa-tasks"></i> CURRENT MISSION</h3>
+                    <div class="mission-details">
+                        <h4>Phishing Detection Challenge</h4>
+                        <p class="mission-desc">
+                            Identify phishing attempts and protect sensitive information. 
+                            Learn to spot fake emails and malicious links.
+                        </p>
+                        
+                        <div class="mission-objectives">
+                            <div class="objective">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Analyze the suspicious email</span>
+                            </div>
+                            <div class="objective">
+                                <i class="far fa-circle"></i>
+                                <span>Identify 3 red flags</span>
+                            </div>
+                            <div class="objective">
+                                <i class="far fa-circle"></i>
+                                <span>Choose correct action</span>
+                            </div>
+                            <div class="objective">
+                                <i class="far fa-circle"></i>
+                                <span>Complete knowledge test</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MCQ测试区域 -->
+                <div class="quiz-section terminal-box">
+                    <h3><i class="fas fa-question-circle"></i> KNOWLEDGE CHECK</h3>
+                    
+                    <div class="quiz-container" id="quiz-container">
+                        <!-- 题目会通过JS动态加载 -->
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button id="prev-btn" class="cyber-btn small">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <span id="question-counter">Question 1 of 5</span>
+                        <button id="next-btn" class="cyber-btn small">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="quiz-results" id="quiz-results">
+                        <!-- 结果会通过JS动态显示 -->
+                    </div>
+                </div>
+                
+                <!-- 徽章展示 -->
+                <div class="badges-section terminal-box">
+                    <h3><i class="fas fa-medal"></i> YOUR BADGES</h3>
+                    <div class="badges-grid">
+                        <div class="badge earned">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Account Defender</span>
+                        </div>
+                        <div class="badge earned">
+                            <i class="fas fa-key"></i>
+                            <span>Password Master</span>
+                        </div>
+                        <div class="badge earned">
+                            <i class="fas fa-eye"></i>
+                            <span>Vigilant Observer</span>
+                        </div>
+                        <div class="badge locked">
+                            <i class="fas fa-fish"></i>
+                            <span>Phishing Expert</span>
+                        </div>
+                        <div class="badge locked">
+                            <i class="fas fa-network-wired"></i>
+                            <span>Network Guardian</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- 游戏进度条 -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+            <div class="progress-text">
+                Mission Progress: 60% Complete
+            </div>
+        </div>
+        
+        <!-- 侧边菜单（隐藏） -->
+        <div class="side-menu" id="side-menu">
+            <div class="menu-header">
+                <h3>Game Menu</h3>
+                <button id="close-menu" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="menu-items">
+                <li><a href="#"><i class="fas fa-home"></i> Main Menu</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Cyber Guide</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+        <div class="menu-overlay" id="menu-overlay"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
