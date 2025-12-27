@@ -11,6 +11,15 @@ const GameState = {
     badges: ['Account Defender', 'Password Master', 'Vigilant Observer']
 };
 
+
+
+const SUPABASE_URL = 'https://niskjnpwpejqsrwgpkqe.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pc2tqbnB3cGVqcXNyd2dwa3FlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY3MDgxMTksImV4cCI6MjA4MjI4NDExOX0.7DyzhGvT2AGlaIIjv0F9iOV-OuccVkOg1yBmQR-ksr8'; // Replace with your Anon Key
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+GameState.sessionId = localStorage.getItem('cyberDefender_sessionId') || Date.now().toString();
+
 const quizQuestions = [
     {
         id: 1,
@@ -110,6 +119,26 @@ function loadCurrentQuestion() {
     document.getElementById('question-counter').textContent = `Question ${GameState.currentQuestion + 1} of ${quizQuestions.length}`;
 }
 
+async function fetchQuizFromSupabase() {
+    const { data, error } = await supabaseClient
+        .from('quizzes')
+        .select('*')
+        .eq('level_id', GameState.level);
+
+    if (data) {
+        // Map the database data to your local quiz format
+        const remoteQuestions = data.map(q => ({
+            id: q.id,
+            question: q.question_text,
+            options: q.options, // Assuming this is a JSON array in Supabase
+            correctAnswer: q.correct_answer_index,
+            rationale: q.rationale
+        }));
+
+        // Use these questions in your game
+        console.log("Loaded questions:", remoteQuestions);
+    }
+}
 function selectOption(index) {
     const q = quizQuestions[GameState.currentQuestion];
     const options = document.querySelectorAll('.option');
