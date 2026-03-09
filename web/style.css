@@ -1158,3 +1158,48 @@ footer {
 }
 
 .xp-label { font-size: 0.6rem; letter-spacing: 2px; white-space: nowrap; }
+
+/* ========== PHISHING MINIGAME STYLES ========== */
+.fake-email {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.email-header {
+  border-bottom: 1px solid #eee;
+  padding: 15px 20px;
+  background: #f5f5f5;
+  font-size: 0.9rem;
+}
+.email-row { margin-bottom: 5px; }
+.email-body {
+  padding: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.btn-fake {
+  display: inline-block;
+  background: #0070ba;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+/* Clickable flags logic */
+.clickable-flag {
+  cursor: crosshair;
+  transition: background 0.3s;
+  border-radius: 3px;
+}
+.clickable-flag:hover {
+  background: rgba(255, 60, 172, 0.2);
+  outline: 1px dashed var(--neon2);
+}
+.clickable-flag.found {
+  background: rgba(0, 230, 118, 0.3);
+  border: 2px solid var(--success);
+  pointer-events: none;
+}

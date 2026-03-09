@@ -233,6 +233,8 @@ const quizData = {
   }
 };
 
+
+
 // ========== STATE ==========
 let currentChapter = null;
 let currentQ = 0;
@@ -436,3 +438,51 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// ========== PHISHING MINIGAME LOGIC ==========
+let flagsFound = 0;
+
+function openMinigame() {
+  flagsFound = 0;
+  document.getElementById('flagsCount').textContent = '0';
+  document.getElementById('mgProgressFill').style.width = '0%';
+  document.getElementById('mgFeedback').textContent = '';
+  
+  // Reset all flags
+  const flags = document.querySelectorAll('.clickable-flag');
+  flags.forEach(f => {
+    f.classList.remove('found');
+  });
+
+  document.getElementById('minigameOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMinigame() {
+  document.getElementById('minigameOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function flagFound(element, rationale) {
+  if (element.classList.contains('found')) return; // Already clicked
+
+  element.classList.add('found');
+  flagsFound++;
+  
+  document.getElementById('flagsCount').textContent = flagsFound;
+  document.getElementById('mgProgressFill').style.width = (flagsFound / 3) * 100 + '%';
+  
+  const feedback = document.getElementById('mgFeedback');
+  feedback.innerHTML = `<strong>FLAG ISOLATED:</strong> ${rationale}`;
+  
+  // Grant XP for finding a flag
+  totalPlayerXP += 25;
+  document.getElementById('navXpCount').textContent = totalPlayerXP + " XP";
+
+  if (flagsFound === 3) {
+    feedback.innerHTML = `<span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">MISSION SUCCESS! All phishing indicators identified.</span><br>You earned +75 Bonus XP!`;
+    setTimeout(() => {
+        closeMinigame();
+    }, 4000);
+  }
+}
