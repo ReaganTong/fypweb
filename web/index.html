@@ -144,18 +144,18 @@
       <button class="ch-start-btn">▶ START CHAPTER 3</button>
     </div>
 
-    <div class="chapter-card ch3 locked" id="chCard4" onclick="openQuiz(4)">
-      <div class="ch-glow" style="background: radial-gradient(circle at 50% 0%, rgba(186, 104, 200, 0.07), transparent 70%);"></div>
-      <div class="ch-number" style="color: #ba68c8;">04</div>
-      <div class="ch-icon" style="background: rgba(186, 104, 200, 0.1); border-color: #ba68c8;">📱</div>
-      <div class="ch-label" style="color: #ba68c8;">// CHAPTER FOUR</div>
+    <div class="chapter-card ch4 locked" id="chCard4" onclick="openQuiz(4)">
+      <div class="ch-glow"></div>
+      <div class="ch-number">04</div>
+      <div class="ch-icon">📱</div>
+      <div class="ch-label">// CHAPTER FOUR</div>
       <h3 class="ch-title">Social Media & Privacy</h3>
       <p class="ch-desc">Master digital footprints, app permissions, and handle cyberbullying safely.</p>
       <div class="ch-meta">
-        <span class="ch-difficulty diff-advanced" style="background:rgba(186, 104, 200, 0.15); color:#ba68c8; border-color:#ba68c8;">EXPERT</span>
+        <span class="ch-difficulty diff-expert">EXPERT</span>
         <span class="ch-questions-count">10 QUESTIONS</span>
       </div>
-      <button class="ch-start-btn" style="border-color:#ba68c8; color:#ba68c8;">▶ START CHAPTER 4</button>
+      <button class="ch-start-btn">▶ START CHAPTER 4</button>
     </div>
 
     <div class="chapter-card ch2" style="background: rgba(255,60,172,0.05);" onclick="openMinigame()">
@@ -180,7 +180,8 @@
     <p style="color: var(--muted); margin-top: 15px; font-size: 0.9rem;">Complete missions to earn specialized security clearances.</p>
   </div>
 
-  <div class="features-grid" style="max-width: 900px; margin: 0 auto;">
+  <div class="features-grid" style="max-width: 1200px; margin: 0 auto;">
+    
     <div class="feature-card" style="border-color: var(--neon); background: rgba(0,255,231,0.05);">
       <div style="font-size: 3rem; margin-bottom: 10px; text-shadow: var(--glow);">🛡️</div>
       <div class="feature-title" style="color: var(--neon);">CRYPTOGRAPHER</div>
@@ -196,11 +197,26 @@
     </div>
 
     <div class="feature-card locked-badge">
-      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">👁️</div>
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">🌐</div>
       <div class="feature-title" style="color: #666;">GHOST PROTOCOL</div>
       <p class="feature-text">Secure network traffic and protect digital privacy.</p>
       <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: #555;">[ LOCKED ]</div>
     </div>
+
+    <div class="feature-card locked-badge">
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">📱</div>
+      <div class="feature-title" style="color: #666;">SOCIAL SENTINEL</div>
+      <p class="feature-text">Master digital footprints and social media privacy.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: #555;">[ LOCKED ]</div>
+    </div>
+
+    <div class="feature-card locked-badge" style="border-style: dashed;">
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.3;">🎯</div>
+      <div class="feature-title" style="color: #666;">MASTER INSPECTOR</div>
+      <p class="feature-text">Successfully neutralized live phishing simulations.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: var(--danger);">[ CLASSIFIED ]</div>
+    </div>
+
   </div>
 </section>
 
@@ -287,13 +303,6 @@
     <div style="padding: 20px 40px; background: var(--surface); border-top: 1px solid var(--border);">
       <h3 style="color: var(--neon2); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;">FLAGS DETECTED: <span id="flagsCount">0</span> / 3</h3>
       <div id="mgFeedback" style="font-size: 0.9rem; color: var(--success); min-height: 50px;"></div>
-    </div>
-  </div>
-</div>
-    
-    <div style="padding: 20px 40px; background: var(--surface);">
-      <h3 style="color: var(--neon2); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;">FLAGS DETECTED: <span id="flagsCount">0</span> / 3</h3>
-      <div id="mgFeedback" style="font-size: 0.9rem; color: var(--success); min-height: 20px;"></div>
     </div>
   </div>
 </div>
