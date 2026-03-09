@@ -1100,3 +1100,59 @@ footer {
 .clickable-flag { cursor: crosshair; transition: background 0.3s; border-radius: 3px; }
 .clickable-flag:hover { background: rgba(255, 60, 172, 0.2); outline: 1px dashed var(--neon2); }
 .clickable-flag.found { background: rgba(0, 230, 118, 0.3) !important; border: 2px solid var(--success) !important; outline: none !important; pointer-events: none; }
+
+/* ========== OUT-OF-THEME TRAPS (INTENTIONALLY GENERIC) ========== */
+
+/* 1. Evil Cookie Banner */
+.unthemed-cookie {
+    position: fixed;
+    bottom: -200px; /* Hidden by default */
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 40px;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.15);
+    z-index: 9998;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: bottom 0.6s ease-in-out;
+    border-top: 1px solid #ccc;
+}
+.unthemed-cookie p { font-size: 0.85rem; max-width: 65%; line-height: 1.5; margin: 0; }
+.unthemed-cookie a { color: #0d6efd; text-decoration: underline; }
+.cookie-btns { display: flex; gap: 10px; }
+.cookie-btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: Arial, sans-serif; transition: 0.2s; }
+.btn-accept { background-color: #0d6efd; color: white; }
+.btn-accept:hover { background-color: #0b5ed7; }
+.btn-decline { background-color: #e9ecef; color: #333; border: 1px solid #ccc; }
+.btn-decline:hover { background-color: #dde0e3; }
+
+/* 2. Fake Support Widget */
+.unthemed-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 10px 10px;
+    cursor: pointer;
+    z-index: 9997;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border: 1px solid #e5e5e5;
+    transform: translateY(150px); /* Hidden by default */
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.support-avatar { width: 40px; height: 40px; border-radius: 50%; background: #0d6efd; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-right: 15px; }
+.support-text { color: #333; font-size: 0.85rem; line-height: 1.3; }
+.support-badge { position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+@media (max-width: 768px) {
+    .unthemed-cookie { flex-direction: column; text-align: center; gap: 15px; padding: 20px; }
+    .unthemed-cookie p { max-width: 100%; }
+}

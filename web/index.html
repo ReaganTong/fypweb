@@ -7,6 +7,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
+
+<div id="initial-scam-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; font-family: Arial, Helvetica, sans-serif;">
+  
+  <div style="max-width: 380px; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow: hidden; width: 90%; animation: modalIn 0.3s ease-out;">
+    
+    <div style="background: #f8f9fa; padding: 12px 20px; border-bottom: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: #495057; font-weight: bold; font-size: 0.85rem;">System Notification</span>
+        <span style="cursor: pointer; color: #adb5bd; font-size: 1.2rem; line-height: 1;" onclick="closeInitialScam(false)">&times;</span>
+    </div>
+    
+    <div style="padding: 30px 25px; text-align: center;">
+      <div style="width: 60px; height: 60px; background: #fff3cd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 15px;">
+        🎁
+      </div>
+      <h3 style="color: #212529; font-size: 1.3rem; margin-bottom: 10px; font-weight: bold;">Starter Bonus Unlocked!</h3>
+      <p style="color: #6c757d; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px;">
+        You are the 100th visitor! Click below to claim your <strong>500 Bonus XP</strong> immediately.
+      </p>
+      
+      <button style="background: #0d6efd; color: #fff; border: none; border-radius: 6px; padding: 12px 0; width: 100%; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#0b5ed7'" onmouseout="this.style.background='#0d6efd'" onclick="closeInitialScam(true)">
+        Claim Bonus Now
+      </button>
+      
+      <div style="margin-top: 15px;">
+        <a href="#" style="color: #adb5bd; font-size: 0.75rem; text-decoration: underline;" onclick="closeInitialScam(false); return false;">No thanks, I will earn it myself</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="evil-cookie-banner" class="unthemed-cookie">
+  <p>We use cookies and targeted trackers to ensure you get the best experience. By clicking "Accept All", you also agree to share your contact list, real-time location, and allow microphone access for personalized ads. <a href="#">Read our 50-page privacy policy.</a></p>
+  <div class="cookie-btns">
+      <button class="cookie-btn btn-accept" onclick="handleCookieTrap(true)">Accept All Cookies</button>
+      <button class="cookie-btn btn-decline" onclick="handleCookieTrap(false)">Manage Preferences</button>
+  </div>
+</div>
+
+<div id="fake-support-widget" class="unthemed-widget" onclick="handleSupportTrap()">
+  <div class="support-avatar">👩‍💼</div>
+  <div class="support-text">
+      <strong>Support Agent Sarah</strong><br>
+      <span style="color: #d93025;">Warning: Your IP is leaking. Click to fix.</span>
+  </div>
+  <div class="support-badge">1</div>
+</div>
+
 <body>
 <div class="grid-bg"></div>
 

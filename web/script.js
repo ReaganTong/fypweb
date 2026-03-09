@@ -576,3 +576,65 @@ function closeMinigame() {
   if(overlay) overlay.classList.remove('active');
   document.body.style.overflow = '';
 }
+
+// ========== RANDOM ENCOUNTER TRAPS LOGIC ==========
+
+window.addEventListener('load', () => {
+    // 1. The Reward Popup (Triggers at 1.5 seconds)
+    setTimeout(() => {
+        const overlay = document.getElementById('initial-scam-overlay');
+        if(overlay) overlay.style.display = 'flex';
+    }, 1500);
+
+    // 2. The Evil Cookie Banner (Triggers at 6 seconds)
+    setTimeout(() => {
+        const cookieBanner = document.getElementById('evil-cookie-banner');
+        if (cookieBanner) cookieBanner.style.bottom = '0'; // Slides up
+    }, 6000);
+
+    // 3. The Fake Support Widget (Triggers at 12 seconds)
+    setTimeout(() => {
+        const widget = document.getElementById('fake-support-widget');
+        if (widget) widget.style.transform = 'translateY(0)'; // Bounces up
+    }, 12000);
+});
+
+// Reward Trap Logic
+function closeInitialScam(wasClicked) {
+    const overlay = document.getElementById('initial-scam-overlay');
+    overlay.style.display = 'none';
+    if(wasClicked) {
+        alert("🚨 ALERT: You just got scammed!\n\nThis is a classic phishing trap. In the real world, clicking buttons like this could install malware on your device. Stay alert!");
+    } else {
+        alert("🎯 EXCELLENT VIGILANCE!\n\nYou successfully identified and avoided a potential threat. (+50 Bonus XP Awarded)");
+        grantGlobalXP(50);
+    }
+}
+
+// Cookie Trap Logic
+function handleCookieTrap(accepted) {
+    const banner = document.getElementById('evil-cookie-banner');
+    banner.style.bottom = '-200px'; // Hide it
+    
+    if (accepted) {
+        alert("🚨 PRIVACY BREACH!\n\nYou just blindly clicked 'Accept All'! The fine print explicitly stated you were sharing your location and microphone data with advertisers.\n\nAlways read or manage preferences instead of blindly accepting cookies.");
+    } else {
+        alert("🛡️ PRIVACY DEFENDED!\n\nGreat job. You chose to manage your preferences instead of blindly handing over your data to trackers. (+25 Bonus XP)");
+        grantGlobalXP(25);
+    }
+}
+
+// Fake Chatbot Trap Logic
+function handleSupportTrap() {
+    const widget = document.getElementById('fake-support-widget');
+    widget.style.transform = 'translateY(150px)'; // Hide it
+    
+    alert("🚨 SCAREWARE AVOIDED!\n\nThat wasn't a real support agent. Scammers inject fake chat boxes and 'System Error' alerts into websites to make you panic and click malicious links.\n\nReal websites don't suddenly warn you about your IP leaking through a generic chat widget.");
+}
+
+// Helper function to safely grant XP
+function grantGlobalXP(amount) {
+    totalPlayerXP += amount;
+    const navXpEl = document.getElementById('navXpCount');
+    if (navXpEl) navXpEl.textContent = totalPlayerXP + " XP";
+}
