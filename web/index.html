@@ -89,8 +89,8 @@
     </div>
     <div class="feature-card">
       <span class="feature-icon">🔐</span>
-      <div class="feature-title">3 CHAPTERS</div>
-      <p class="feature-text">Progress from beginner to advanced — covering passwords, phishing, networks, and more.</p>
+      <div class="feature-title">4 CHAPTERS</div>
+      <p class="feature-text">Progress from beginner to advanced — covering passwords, phishing, networks, and privacy.</p>
     </div>
   </div>
 </section>
@@ -102,76 +102,53 @@
   </div>
 
   <div class="chapters-grid">
-    <div class="chapter-card ch1">
+    <div class="chapter-card ch1" id="chCard1" onclick="openQuiz(1)">
       <div class="ch-glow"></div>
       <div class="ch-number">01</div>
       <div class="ch-icon">🛡️</div>
       <div class="ch-label">// CHAPTER ONE</div>
       <h3 class="ch-title">Passwords & Account Security</h3>
       <p class="ch-desc">Learn how attackers crack passwords and what you can do to make your accounts nearly impossible to hack.</p>
-      <div class="ch-topics">
-        <div class="ch-topic">What makes a strong password?</div>
-        <div class="ch-topic">Two-factor authentication (2FA)</div>
-        <div class="ch-topic">Password managers explained</div>
-        <div class="ch-topic">Brute-force & dictionary attacks</div>
-        <div class="ch-topic">Account takeover prevention</div>
-      </div>
       <div class="ch-meta">
         <span class="ch-difficulty diff-beginner">BEGINNER</span>
         <span class="ch-questions-count">10 QUESTIONS</span>
       </div>
-      <button class="ch-start-btn" onclick="openQuiz(1)">▶ START CHAPTER 1</button>
+      <button class="ch-start-btn">▶ START CHAPTER 1</button>
     </div>
 
-    <div class="chapter-card ch2">
+    <div class="chapter-card ch2 locked" id="chCard2" onclick="openQuiz(2)">
       <div class="ch-glow"></div>
       <div class="ch-number">02</div>
       <div class="ch-icon">🎣</div>
       <div class="ch-label">// CHAPTER TWO</div>
       <h3 class="ch-title">Phishing & Social Engineering</h3>
       <p class="ch-desc">Discover how cybercriminals manipulate people using fake emails, texts, and websites to steal your info.</p>
-      <div class="ch-topics">
-        <div class="ch-topic">Recognizing phishing emails</div>
-        <div class="ch-topic">Smishing & vishing attacks</div>
-        <div class="ch-topic">Fake login pages & spoofing</div>
-        <div class="ch-topic">Social engineering psychology</div>
-        <div class="ch-topic">Reporting suspicious messages</div>
-      </div>
       <div class="ch-meta">
         <span class="ch-difficulty diff-intermediate">INTERMEDIATE</span>
         <span class="ch-questions-count">10 QUESTIONS</span>
       </div>
-      <button class="ch-start-btn" onclick="openQuiz(2)">▶ START CHAPTER 2</button>
+      <button class="ch-start-btn">▶ START CHAPTER 2</button>
     </div>
 
-    <div class="chapter-card ch3">
+    <div class="chapter-card ch3 locked" id="chCard3" onclick="openQuiz(3)">
       <div class="ch-glow"></div>
       <div class="ch-number">03</div>
       <div class="ch-icon">🌐</div>
       <div class="ch-label">// CHAPTER THREE</div>
       <h3 class="ch-title">Networks, Privacy & Malware</h3>
       <p class="ch-desc">Understand how the internet works, how malware spreads, and how to protect your privacy online.</p>
-      <div class="ch-topics">
-        <div class="ch-topic">Public Wi-Fi dangers</div>
-        <div class="ch-topic">VPNs & encryption basics</div>
-        <div class="ch-topic">Malware, ransomware & viruses</div>
-        <div class="ch-topic">Cookies & digital privacy</div>
-        <div class="ch-topic">Safe browsing habits</div>
-      </div>
       <div class="ch-meta">
         <span class="ch-difficulty diff-advanced">ADVANCED</span>
         <span class="ch-questions-count">10 QUESTIONS</span>
       </div>
-      <button class="ch-start-btn" onclick="openQuiz(3)">▶ START CHAPTER 3</button>
+      <button class="ch-start-btn">▶ START CHAPTER 3</button>
     </div>
-  </div>
-</section>
 
-<div class="chapter-card ch3 locked" id="chCard4" onclick="openQuiz(4)">
-      <div class="ch-glow"></div>
-      <div class="ch-number">04</div>
-      <div class="ch-icon">📱</div>
-      <div class="ch-label">// CHAPTER FOUR</div>
+    <div class="chapter-card ch3 locked" id="chCard4" onclick="openQuiz(4)">
+      <div class="ch-glow" style="background: radial-gradient(circle at 50% 0%, rgba(186, 104, 200, 0.07), transparent 70%);"></div>
+      <div class="ch-number" style="color: #ba68c8;">04</div>
+      <div class="ch-icon" style="background: rgba(186, 104, 200, 0.1); border-color: #ba68c8;">📱</div>
+      <div class="ch-label" style="color: #ba68c8;">// CHAPTER FOUR</div>
       <h3 class="ch-title">Social Media & Privacy</h3>
       <p class="ch-desc">Master digital footprints, app permissions, and handle cyberbullying safely.</p>
       <div class="ch-meta">
@@ -188,45 +165,13 @@
       <div class="ch-label" style="color:var(--neon2);">// SIMULATION</div>
       <h3 class="ch-title" style="color:var(--text);">Phishing Inspector</h3>
       <p class="ch-desc">PRACTICE MODE: Analyze a live email and click the red flags to secure the network.</p>
+      <div class="ch-meta">
+        <span class="ch-difficulty" style="background:rgba(255,60,172,0.15); color:var(--neon2); border:1px solid var(--neon2);">INTERACTIVE</span>
+      </div>
       <button class="ch-start-btn" style="border-color:var(--neon2); color:var(--neon2); background:transparent;">▶ INITIALIZE SIMULATOR</button>
     </div>
-	
-	<div class="quiz-overlay" id="minigameOverlay">
-  <div class="quiz-modal" style="max-width: 800px; border-color: var(--neon2); box-shadow: 0 0 30px rgba(255,60,172,0.2);">
-    <div class="quiz-header" style="border-bottom-color: var(--neon2);">
-      <div class="quiz-chapter-label" style="color: var(--neon2);">// LIVE SIMULATION</div>
-      <div class="quiz-title">PHISHING INSPECTOR</div>
-      <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px;">MISSION: Find and click the <strong style="color:var(--danger);">3 red flags</strong> in this email.</p>
-      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="mgProgressFill" style="width:0%; background:var(--neon2);"></div></div>
-      <button class="quiz-close" onclick="closeMinigame()">✕</button>
-    </div>
-
-    <div class="quiz-body" style="background: #e6e9f0; color: #333; padding: 30px; border-radius: 0 0 4px 4px;">
-      <div class="fake-email">
-        <div class="email-header">
-          <div class="email-row"><strong>From:</strong> <span class="clickable-flag" onclick="flagFound(this, 'Sender is typosquatting! (paypa1 instead of paypal)')">Support Team &lt;security@paypa1-update.com&gt;</span></div>
-          <div class="email-row"><strong>To:</strong> Undisclosed Recipients</div>
-          <div class="email-row"><strong>Subject:</strong> <span style="color:#d32f2f; font-weight:bold;">URGENT: Your Account Will Be Suspended!</span></div>
-        </div>
-        <div class="email-body">
-          <p><span class="clickable-flag" onclick="flagFound(this, 'Generic greeting. Real companies use your actual name.')">Dear Valued Customer,</span></p>
-          <p>We have detected unusual activity on your account. For your protection, your access has been temporarily restricted.</p>
-          <p>You must verify your identity within <strong>24 hours</strong> or your account will be permanently deleted.</p>
-          <div style="text-align: center; margin: 30px 0;">
-            <span class="clickable-flag btn-fake" onclick="flagFound(this, 'Hovering shows a suspicious URL that does not go to the real website.')">VERIFY ACCOUNT NOW</span>
-            <div style="font-size:0.7rem; color:gray; margin-top:5px;">(Link points to: http://login-verify-account123.net)</div>
-          </div>
-          <p>Thank you,<br>The Security Team</p>
-        </div>
-      </div>
-    </div>
-    
-    <div style="padding: 20px 40px; background: var(--surface);">
-      <h3 style="color: var(--neon2); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;">FLAGS DETECTED: <span id="flagsCount">0</span> / 3</h3>
-      <div id="mgFeedback" style="font-size: 0.9rem; color: var(--success); min-height: 20px;"></div>
-    </div>
   </div>
-</div>
+</section>
 
 <section class="features-section" id="achievements" style="background: var(--bg);">
   <div class="section-header">
@@ -256,26 +201,12 @@
       <p class="feature-text">Secure network traffic and protect digital privacy.</p>
       <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: #555;">[ LOCKED ]</div>
     </div>
-
-    <div class="feature-card locked-badge" style="border-style: dashed;">
-      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.3;">👑</div>
-      <div class="feature-title" style="color: #666;">OVERLORD BANE</div>
-      <p class="feature-text">Defeat the Malware Overlord and secure the mainframe.</p>
-      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: var(--danger);">[ CLASSIFIED ]</div>
-    </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-logo">⬡ CYBERGUARD ACADEMY</div>
   <p class="footer-text">Empowering the next generation of digital defenders. Learn to protect yourself and others in an increasingly connected world.</p>
-  <div class="footer-links">
-    <a href="#">About</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
-    <a href="#">For Educators</a>
-  </div>
   <div class="footer-copy">© 2026 CYBERGUARD ACADEMY — ALL RIGHTS RESERVED</div>
 </footer>
 
@@ -336,6 +267,43 @@
         <button class="btn-primary" onclick="retryQuiz()">↺ RETRY</button>
         <button class="btn-secondary" onclick="closeQuiz()">BACK TO CHAPTERS</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-overlay" id="minigameOverlay">
+  <div class="quiz-modal" style="max-width: 800px; border-color: var(--neon2); box-shadow: 0 0 30px rgba(255,60,172,0.2);">
+    <div class="quiz-header" style="border-bottom-color: var(--neon2);">
+      <div class="quiz-chapter-label" style="color: var(--neon2);">// LIVE SIMULATION</div>
+      <div class="quiz-title">PHISHING INSPECTOR</div>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px;">MISSION: Find and click the <strong style="color:var(--danger);">3 red flags</strong> in this email.</p>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="mgProgressFill" style="width:0%; background:var(--neon2);"></div></div>
+      <button class="quiz-close" onclick="closeMinigame()">✕</button>
+    </div>
+
+    <div class="quiz-body" style="background: #e6e9f0; color: #333; padding: 30px; border-radius: 0 0 4px 4px;">
+      <div class="fake-email">
+        <div class="email-header">
+          <div class="email-row"><strong>From:</strong> <span class="clickable-flag" onclick="flagFound(this, 'Sender is typosquatting! (paypa1 instead of paypal)')">Support Team &lt;security@paypa1-update.com&gt;</span></div>
+          <div class="email-row"><strong>To:</strong> Undisclosed Recipients</div>
+          <div class="email-row"><strong>Subject:</strong> <span style="color:#d32f2f; font-weight:bold;">URGENT: Your Account Will Be Suspended!</span></div>
+        </div>
+        <div class="email-body">
+          <p><span class="clickable-flag" onclick="flagFound(this, 'Generic greeting. Real companies use your actual name.')">Dear Valued Customer,</span></p>
+          <p>We have detected unusual activity on your account. For your protection, your access has been temporarily restricted.</p>
+          <p>You must verify your identity within <strong>24 hours</strong> or your account will be permanently deleted.</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <span class="clickable-flag btn-fake" onclick="flagFound(this, 'Hovering shows a suspicious URL that does not go to the real website.')">VERIFY ACCOUNT NOW</span>
+            <div style="font-size:0.7rem; color:gray; margin-top:5px;">(Link points to: http://login-verify-account123.net)</div>
+          </div>
+          <p>Thank you,<br>The Security Team</p>
+        </div>
+      </div>
+    </div>
+    
+    <div style="padding: 20px 40px; background: var(--surface);">
+      <h3 style="color: var(--neon2); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;">FLAGS DETECTED: <span id="flagsCount">0</span> / 3</h3>
+      <div id="mgFeedback" style="font-size: 0.9rem; color: var(--success); min-height: 20px;"></div>
     </div>
   </div>
 </div>
