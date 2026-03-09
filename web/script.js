@@ -230,6 +230,83 @@ const quizData = {
         tip: "Privacy isn't about hiding — it's about controlling who has access to your personal data."
       }
     ]
+  },
+4: {
+    title: "Social Media & Privacy",
+    label: "// CHAPTER 04 — EXPERT",
+    color: "#ba68c8", 
+    questions: [
+      {
+        q: "You are going on a two-week family vacation. When is the safest time to post your vacation photos on Instagram/TikTok?",
+        options: ["As soon as you arrive at the hotel", "Live-stream your daily activities", "Tag your location in every post", "After you have returned home"],
+        answer: 3,
+        explanation: "Posting while you are away announces to the world that your house is empty, which is a major security risk for burglary.",
+        tip: "Enjoy the moment, post the memories later."
+      },
+      {
+        q: "You download a free 'Flashlight' app, but it asks for permission to access your Contacts and Microphone. What should you do?",
+        options: ["Allow it, apps need permissions to work", "Deny those permissions or uninstall the app", "Only allow Contacts, not Microphone", "Pay for the premium version"],
+        answer: 1,
+        explanation: "A flashlight app only needs access to your camera's flash. Apps asking for unrelated permissions are often harvesting and selling your personal data.",
+        tip: "Always practice the 'Principle of Least Privilege' — only give apps exactly what they need."
+      },
+      {
+        q: "Someone in a gaming Discord server starts harassing you and calling you names. What is the BEST response?",
+        options: ["Insult them back to defend yourself", "Challenge them to a 1v1 match", "Block, report them to moderators, and ignore them", "Share their username on social media to cancel them"],
+        answer: 2,
+        explanation: "Engaging with cyberbullies or trolls usually escalates the situation. Blocking and reporting cuts off their access to you and alerts platform admins.",
+        tip: "Don't feed the trolls. Your mental peace is more important than an online argument."
+      },
+      {
+        q: "You see an influencer posting: 'Tag 3 friends and click the link in my bio to win a free PS5!' Why is this dangerous?",
+        options: ["It's usually a scam to farm engagement and lead you to a phishing link", "The PS5 might be broken", "You might have to pay shipping", "There is no danger, it's just marketing"],
+        answer: 0,
+        explanation: "Scammers frequently hijack verified accounts or create fake ones to run fake giveaways. The link usually steals login credentials or installs malware.",
+        tip: "If you have to click a shady link to claim a prize, you are the product."
+      },
+      {
+        q: "What does it mean when experts say 'The internet is forever' regarding your Digital Footprint?",
+        options: ["Servers never run out of power", "Deleted posts can still be saved via screenshots or archived by search engines", "Social media companies legally can't delete your account", "Your Wi-Fi history is saved forever"],
+        answer: 1,
+        explanation: "Once something is online, you lose control of it. Even if you delete a bad post or embarrassing photo, someone else may have already screenshotted it.",
+        tip: "Before you post, ask yourself: 'Would I want a future employer or college admissions officer to see this?'"
+      },
+      {
+        q: "You take a great selfie on your first day of school, but your school ID badge is clearly visible. What should you do?",
+        options: ["Post it everywhere", "Blur or crop out the ID badge before posting", "Only post it on your public story", "Add a location tag so people know what school it is"],
+        answer: 1,
+        explanation: "School IDs often contain full names, barcodes, or student numbers. Posting this publicly exposes your identity and exact daily location to strangers.",
+        tip: "Always review photos for sensitive background information before hitting send."
+      },
+      {
+        q: "Why is it highly recommended to set your personal social media accounts (like Instagram or TikTok) to 'Private'?",
+        options: ["It stops algorithms from showing you ads", "It gives you total control over who can view, save, and comment on your posts", "It makes your internet connection faster", "It prevents you from getting banned"],
+        answer: 1,
+        explanation: "Public accounts can be viewed by anyone, meaning your photos and data can be scraped by scammers or stalkers. A private account acts as a firewall for your personal life.",
+        tip: "Your personal life isn't public property. Gatekeep your privacy."
+      },
+      {
+        q: "You find a fun quiz app that asks you to 'Log in with Facebook/Google' to see your results. What is the risk?",
+        options: ["The quiz might be boring", "You are giving a third-party app access to your profile data, contacts, and email", "It will log you out of your account", "It will change your password automatically"],
+        answer: 1,
+        explanation: "Using 'Single Sign-On' (SSO) is convenient, but shady apps use it to harvest your personal data. Always check what permissions the app is requesting before agreeing.",
+        tip: "If you must use these apps, review and revoke third-party app access regularly in your account settings."
+      },
+      {
+        q: "You love using the 'Check-in' feature or location stickers on Snapchat/Instagram every time you visit your favorite cafe. What is the danger?",
+        options: ["You might run out of data", "It drains your battery faster", "It creates a predictable pattern of your daily routines for stalkers", "It costs money to use location features"],
+        answer: 2,
+        explanation: "Constantly broadcasting your real-time location creates a map of your habits. Malicious individuals can use this to know exactly where you are—and where you aren't.",
+        tip: "Turn off precise location sharing for social media apps in your phone settings."
+      },
+      {
+        q: "You see a viral video on TikTok of a politician or celebrity saying something incredibly offensive and out of character. What should you consider FIRST?",
+        options: ["Share it immediately to spread awareness", "It might be an AI-generated 'Deepfake' designed to spread misinformation", "Leave an angry comment", "Assume it is 100% real because it's a video"],
+        answer: 1,
+        explanation: "Deepfakes use AI to manipulate audio and video, making it look like someone said or did something they didn't. Always verify shocking videos through multiple reliable news sources.",
+        tip: "Seeing is no longer believing. Think critically and verify before you share."
+      }
+    ]
   }
 };
 
@@ -257,8 +334,8 @@ function animateCounter(id, target, suffix = '') {
 window.addEventListener('load', () => {
   setTimeout(() => {
     animateCounter('counter-students', 12847);
-    animateCounter('counter-questions', 30);
-    animateCounter('counter-chapters', 3);
+    animateCounter('counter-questions', 40);
+    animateCounter('counter-chapters', 4);
   }, 500);
 });
 
@@ -441,26 +518,89 @@ document.addEventListener('keydown', (e) => {
 
 // ========== PHISHING MINIGAME LOGIC ==========
 let flagsFound = 0;
+let currentMgLevel = 0;
+
+// The 3 Phishing Scenarios
+const mgScenarios = [
+  {
+    fromName: "Support Team",
+    fromEmail: "security@paypa1-update.com",
+    fromFlag: "Sender is typosquatting! (paypa1 instead of paypal)",
+    subject: "URGENT: Your Account Will Be Suspended!",
+    greeting: "Dear Valued Customer,",
+    greetingFlag: "Generic greeting. Real companies use your actual name.",
+    p1: "We have detected unusual activity on your account. For your protection, your access has been temporarily restricted.",
+    p2: "You must verify your identity within <strong>24 hours</strong> or your account will be permanently deleted.",
+    btn: "VERIFY ACCOUNT NOW",
+    btnDest: "(Link points to: http://login-verify-account123.net)",
+    btnFlag: "Suspicious URL that does not go to the real website."
+  },
+  {
+    fromName: "Netflix Support",
+    fromEmail: "billing@netflix-update-alert.com",
+    fromFlag: "Real Netflix emails come from @netflix.com, not long hyphenated domains.",
+    subject: "Payment Declined - Update Required",
+    greeting: "Hi there,",
+    greetingFlag: "Generic greeting instead of your actual profile name.",
+    p1: "We were unable to process your last payment. Your subscription will be canceled at the end of the day.",
+    p2: "Please update your payment details immediately to avoid losing access to your favorite shows.",
+    btn: "UPDATE PAYMENT METHOD",
+    btnDest: "(Link points to: http://netflix.billing-update-99.com/login)",
+    btnFlag: "Suspicious non-official domain for payment update."
+  },
+  {
+    fromName: "School IT Helpdesk",
+    fromEmail: "admin@university-portal.org",
+    fromFlag: "Official school emails usually end in .edu or .edu.my, not .org.",
+    subject: "Mandatory Password Reset",
+    greeting: "Attention Student,",
+    greetingFlag: "Impersonal greeting from what should be an internal department.",
+    p1: "Due to a recent security update, all students must reset their portal passwords.",
+    p2: "Failure to do so will result in immediate lockout from the campus Wi-Fi and student dashboard.",
+    btn: "RESET PASSWORD",
+    btnDest: "(Link points to: http://bit.ly/univ-reset-332)",
+    btnFlag: "IT departments do not use URL shorteners (bit.ly) for official password resets."
+  }
+];
 
 function openMinigame() {
+  currentMgLevel = 0;
+  document.getElementById('minigameOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  loadMgScenario();
+}
+
+function loadMgScenario() {
   flagsFound = 0;
   document.getElementById('flagsCount').textContent = '0';
   document.getElementById('mgProgressFill').style.width = '0%';
-  document.getElementById('mgFeedback').textContent = '';
+  document.getElementById('mgFeedback').innerHTML = '';
+  document.getElementById('mgLevelDisplay').textContent = `(EMAIL ${currentMgLevel + 1} OF ${mgScenarios.length})`;
   
-  // Reset all flags
-  const flags = document.querySelectorAll('.clickable-flag');
-  flags.forEach(f => {
-    f.classList.remove('found');
-  });
-
-  document.getElementById('minigameOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeMinigame() {
-  document.getElementById('minigameOverlay').classList.remove('active');
-  document.body.style.overflow = '';
+  const s = mgScenarios[currentMgLevel];
+  
+  // Dynamically inject the fake email HTML
+  const emailHtml = `
+    <div class="fake-email">
+      <div class="email-header">
+        <div class="email-row"><strong>From:</strong> <span class="clickable-flag" onclick="flagFound(this, '${s.fromFlag}')">${s.fromName} &lt;${s.fromEmail}&gt;</span></div>
+        <div class="email-row"><strong>To:</strong> Undisclosed Recipients</div>
+        <div class="email-row"><strong>Subject:</strong> <span style="color:#d32f2f; font-weight:bold;">${s.subject}</span></div>
+      </div>
+      <div class="email-body">
+        <p><span class="clickable-flag" onclick="flagFound(this, '${s.greetingFlag}')">${s.greeting}</span></p>
+        <p>${s.p1}</p>
+        <p>${s.p2}</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <span class="clickable-flag btn-fake" onclick="flagFound(this, '${s.btnFlag}')">${s.btn}</span>
+          <div style="font-size:0.7rem; color:gray; margin-top:5px;">${s.btnDest}</div>
+        </div>
+        <p>Thank you,<br>The Security Team</p>
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('mgBodyContainer').innerHTML = emailHtml;
 }
 
 function flagFound(element, rationale) {
@@ -473,16 +613,29 @@ function flagFound(element, rationale) {
   document.getElementById('mgProgressFill').style.width = (flagsFound / 3) * 100 + '%';
   
   const feedback = document.getElementById('mgFeedback');
-  feedback.innerHTML = `<strong>FLAG ISOLATED:</strong> ${rationale}`;
-  
+  feedback.innerHTML = `<strong>FLAG ISOLATED:</strong> <span style="color:white;">${rationale}</span>`;
+
   // Grant XP for finding a flag
   totalPlayerXP += 25;
   document.getElementById('navXpCount').textContent = totalPlayerXP + " XP";
 
   if (flagsFound === 3) {
-    feedback.innerHTML = `<span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">MISSION SUCCESS! All phishing indicators identified.</span><br>You earned +75 Bonus XP!`;
-    setTimeout(() => {
-        closeMinigame();
-    }, 4000);
+    if (currentMgLevel < mgScenarios.length - 1) {
+        // If there are more emails, show the "Next Email" button
+        feedback.innerHTML = `<span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">EMAIL SECURED!</span> All phishing indicators identified.<br>You earned +75 Bonus XP! <br><button class="btn-primary" style="margin-top:15px; padding:10px 20px; font-size:0.7rem; background:var(--neon2);" onclick="nextMgScenario()">NEXT EMAIL →</button>`;
+    } else {
+        // If it's the last email, show the "Finish" button
+        feedback.innerHTML = `<span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">SIMULATION COMPLETE!</span> You are a master inspector.<br>You earned +75 Bonus XP! <br><button class="btn-primary" style="margin-top:15px; padding:10px 20px; font-size:0.7rem; background:var(--neon2);" onclick="closeMinigame()">FINISH SIMULATION</button>`;
+    }
   }
+}
+
+function nextMgScenario() {
+    currentMgLevel++;
+    loadMgScenario();
+}
+
+function closeMinigame() {
+  document.getElementById('minigameOverlay').classList.remove('active');
+  document.body.style.overflow = '';
 }

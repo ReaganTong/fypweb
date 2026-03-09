@@ -153,22 +153,22 @@
       <p class="ch-desc">Master digital footprints, app permissions, and handle cyberbullying safely.</p>
       <div class="ch-meta">
         <span class="ch-difficulty diff-advanced" style="background:rgba(186, 104, 200, 0.15); color:#ba68c8; border-color:#ba68c8;">EXPERT</span>
-        <span class="ch-questions-count">5 QUESTIONS</span>
+        <span class="ch-questions-count">10 QUESTIONS</span>
       </div>
       <button class="ch-start-btn" style="border-color:#ba68c8; color:#ba68c8;">▶ START CHAPTER 4</button>
     </div>
 
-    <div class="chapter-card" style="border-color: var(--neon2); background: rgba(255,60,172,0.05);" onclick="openMinigame()">
+    <div class="chapter-card ch2" style="background: rgba(255,60,172,0.05);" onclick="openMinigame()">
       <div class="ch-glow"></div>
-      <div class="ch-number" style="color:var(--neon2);">MG</div>
-      <div class="ch-icon" style="background:rgba(255,60,172,0.1); border-color:var(--neon2);">🎯</div>
-      <div class="ch-label" style="color:var(--neon2);">// SIMULATION</div>
-      <h3 class="ch-title" style="color:var(--text);">Phishing Inspector</h3>
+      <div class="ch-number">MG</div>
+      <div class="ch-icon">🎯</div>
+      <div class="ch-label">// SIMULATION</div>
+      <h3 class="ch-title">Phishing Inspector</h3>
       <p class="ch-desc">PRACTICE MODE: Analyze a live email and click the red flags to secure the network.</p>
       <div class="ch-meta">
         <span class="ch-difficulty" style="background:rgba(255,60,172,0.15); color:var(--neon2); border:1px solid var(--neon2);">INTERACTIVE</span>
       </div>
-      <button class="ch-start-btn" style="border-color:var(--neon2); color:var(--neon2); background:transparent;">▶ INITIALIZE SIMULATOR</button>
+      <button class="ch-start-btn">▶ INITIALIZE SIMULATOR</button>
     </div>
   </div>
 </section>
@@ -275,11 +275,21 @@
   <div class="quiz-modal" style="max-width: 800px; border-color: var(--neon2); box-shadow: 0 0 30px rgba(255,60,172,0.2);">
     <div class="quiz-header" style="border-bottom-color: var(--neon2);">
       <div class="quiz-chapter-label" style="color: var(--neon2);">// LIVE SIMULATION</div>
-      <div class="quiz-title">PHISHING INSPECTOR</div>
+      <div class="quiz-title">PHISHING INSPECTOR <span id="mgLevelDisplay" style="font-size:0.8rem; color:var(--muted); margin-left:15px;"></span></div>
       <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px;">MISSION: Find and click the <strong style="color:var(--danger);">3 red flags</strong> in this email.</p>
       <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="mgProgressFill" style="width:0%; background:var(--neon2);"></div></div>
       <button class="quiz-close" onclick="closeMinigame()">✕</button>
     </div>
+
+    <div class="quiz-body" style="background: #e6e9f0; color: #333; padding: 30px; border-radius: 0 0 4px 4px;" id="mgBodyContainer">
+      </div>
+    
+    <div style="padding: 20px 40px; background: var(--surface); border-top: 1px solid var(--border);">
+      <h3 style="color: var(--neon2); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;">FLAGS DETECTED: <span id="flagsCount">0</span> / 3</h3>
+      <div id="mgFeedback" style="font-size: 0.9rem; color: var(--success); min-height: 50px;"></div>
+    </div>
+  </div>
+</div>
 
     <div class="quiz-body" style="background: #e6e9f0; color: #333; padding: 30px; border-radius: 0 0 4px 4px;">
       <div class="fake-email">
