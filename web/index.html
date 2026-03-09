@@ -1,257 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberDefender - Game Content</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberGuard Academy — Learn Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 扫描线效果 -->
-    <div class="scanline"></div>
-    
-    <!-- 主游戏容器 -->
-    <div id="game-container">
-        <!-- 游戏头部 -->
-        <header class="game-header">
-            <div class="player-info">
-                <div class="player-avatar">
-                    <i class="fas fa-user-secret"></i>
-                </div>
-                <div class="player-details">
-                    <h3 id="player-display-name">Cyber_Explorer</h3>
-                    <div class="xp-bar">
-                        <div class="xp-fill" style="width: 45%"></div>
-                        <span class="xp-text">Level 2 | 45/100 XP</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="game-title">
-                <h1><i class="fas fa-shield-alt"></i> CYBERDEFENDER</h1>
-                <p class="mission-tag">Mission: Phishing Awareness</p>
-            </div>
-            
-            <div class="game-stats">
-                <div class="stat-box">
-                    <i class="fas fa-star"></i>
-                    <span>Score: 850</span>
-                </div>
-                <div class="stat-box">
-                    <i class="fas fa-medal"></i>
-                    <span>Badges: 3</span>
-                </div>
-                <button id="menu-btn" class="cyber-btn small">
-                    <i class="fas fa-bars"></i> Menu
-                </button>
-            </div>
-        </header>
-        
-        <!-- 游戏主要内容区域 -->
-        <main class="game-main">
-            <!-- 左侧：任务对话区域 -->
-            <section class="dialogue-section">
-                <div class="terminal-box dialogue-box">
-                    <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <div class="terminal-title">MISSION CONTROL</div>
-                    </div>
-                    
-                    <!-- 角色对话 -->
-                    <div class="dialogue-content">
-                        <div class="message character-message">
-                            <div class="avatar">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="message-content">
-                                <div class="character-name">Commander Byte</div>
-                                <div class="message-text">
-                                    Welcome back, Agent! We've detected a suspicious email targeting our network. 
-                                    This appears to be a phishing attempt. Your mission is to analyze it and decide the best course of action.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 邮件内容展示 -->
-                        <div class="email-preview">
-                            <div class="email-header">
-                                <div class="email-sender">
-                                    <strong>From:</strong> G00gle Support &lt;support@g00gle-security.com&gt;
-                                </div>
-                                <div class="email-subject">
-                                    <strong>Subject:</strong> URGENT: Your Account Has Been Compromised!
-                                </div>
-                            </div>
-                            <div class="email-body">
-                                <p>Dear User,</p>
-                                <p>We have detected unusual activity on your Google account. For your security, we have temporarily restricted your account.</p>
-                                <p><strong>Click here to verify your identity and restore access:</strong></p>
-                                <a href="#" class="suspicious-link">https://g00gle-security-verify.com/login</a>
-                                <p>If you do not verify within 24 hours, your account will be permanently suspended.</p>
-                                <p>Sincerely,<br>Google Security Team</p>
-                            </div>
-                        </div>
-                        
-                        <div class="message character-message">
-                            <div class="avatar">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="message-content">
-                                <div class="character-name">Commander Byte</div>
-                                <div class="message-text">
-                                    What do you think, Agent? This looks serious, but something feels off. 
-                                    What action should we take?
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 选项按钮 -->
-                    <div class="action-options" id="action-options">
-                        <button class="cyber-btn option-btn" data-action="inspect">
-                            <i class="fas fa-search"></i> Inspect Details
-                        </button>
-                        <button class="cyber-btn option-btn" data-action="report">
-                            <i class="fas fa-flag"></i> Report as Phishing
-                        </button>
-                        <button class="cyber-btn option-btn dangerous" data-action="click">
-                            <i class="fas fa-exclamation-triangle"></i> Click the Link
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 反馈区域 -->
-                <div class="feedback-box terminal-box" id="feedback-box">
-                    <div class="feedback-header">
-                        <i class="fas fa-lightbulb"></i> CYBERSECURITY INSIGHT
-                    </div>
-                    <div class="feedback-content" id="feedback-content">
-                        <p>Select an action above to learn about phishing detection.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- 右侧：任务信息和MCQ区域 -->
-            <section class="info-section">
-                <!-- 当前任务信息 -->
-                <div class="mission-info terminal-box">
-                    <h3><i class="fas fa-tasks"></i> CURRENT MISSION</h3>
-                    <div class="mission-details">
-                        <h4>Phishing Detection Challenge</h4>
-                        <p class="mission-desc">
-                            Identify phishing attempts and protect sensitive information. 
-                            Learn to spot fake emails and malicious links.
-                        </p>
-                        
-                        <div class="mission-objectives">
-                            <div class="objective">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Analyze the suspicious email</span>
-                            </div>
-                            <div class="objective">
-                                <i class="far fa-circle"></i>
-                                <span>Identify 3 red flags</span>
-                            </div>
-                            <div class="objective">
-                                <i class="far fa-circle"></i>
-                                <span>Choose correct action</span>
-                            </div>
-                            <div class="objective">
-                                <i class="far fa-circle"></i>
-                                <span>Complete knowledge test</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- MCQ测试区域 -->
-                <div class="quiz-section terminal-box">
-                    <h3><i class="fas fa-question-circle"></i> KNOWLEDGE CHECK</h3>
-                    
-                    <div class="quiz-container" id="quiz-container">
-                        <!-- 题目会通过JS动态加载 -->
-                    </div>
-                    
-                    <div class="quiz-controls">
-                        <button id="prev-btn" class="cyber-btn small">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <span id="question-counter">Question 1 of 5</span>
-                        <button id="next-btn" class="cyber-btn small">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="quiz-results" id="quiz-results">
-                        <!-- 结果会通过JS动态显示 -->
-                    </div>
-                </div>
-                
-                <!-- 徽章展示 -->
-                <div class="badges-section terminal-box">
-                    <h3><i class="fas fa-medal"></i> YOUR BADGES</h3>
-                    <div class="badges-grid">
-                        <div class="badge earned">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Account Defender</span>
-                        </div>
-                        <div class="badge earned">
-                            <i class="fas fa-key"></i>
-                            <span>Password Master</span>
-                        </div>
-                        <div class="badge earned">
-                            <i class="fas fa-eye"></i>
-                            <span>Vigilant Observer</span>
-                        </div>
-                        <div class="badge locked">
-                            <i class="fas fa-fish"></i>
-                            <span>Phishing Expert</span>
-                        </div>
-                        <div class="badge locked">
-                            <i class="fas fa-network-wired"></i>
-                            <span>Network Guardian</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <!-- 游戏进度条 -->
-        <div class="progress-section">
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 60%"></div>
-            </div>
-            <div class="progress-text">
-                Mission Progress: 60% Complete
-            </div>
-        </div>
-        
-        <!-- 侧边菜单（隐藏） -->
-        <div class="side-menu" id="side-menu">
-            <div class="menu-header">
-                <h3>Game Menu</h3>
-                <button id="close-menu" class="close-btn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <ul class="menu-items">
-                <li><a href="#"><i class="fas fa-home"></i> Main Menu</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-                <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
-                <li><a href="#"><i class="fas fa-book"></i> Cyber Guide</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-        </div>
-        <div class="menu-overlay" id="menu-overlay"></div>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="shield"></div>
+    CYBERGUARD<span style="color:var(--muted);font-weight:400"> ACADEMY</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#chapters">Chapters</a></li>
+    <li><a href="#features">How It Works</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+  </ul>
+  <button class="nav-cta" onclick="scrollToChapters()">START LEARNING</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+
+  <div class="hero-badge">
+    <span class="blink">▌</span>
+    CYBERSECURITY TRAINING FOR TEENS
+  </div>
+
+  <h1 class="hero-title">
+    <span class="line1">LEVEL UP YOUR</span>
+    <span class="line2">CYBER DEFENSE</span>
+  </h1>
+
+  <p class="hero-sub">
+    Master the digital battlefield. Learn how hackers think, how to protect your data,
+    and how to stay safe online — through interactive challenges and real-world scenarios.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="scrollToChapters()">▶ BEGIN TRAINING</button>
+    <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">HOW IT WORKS</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num" id="counter-students">0</div>
+      <div class="stat-label">Students Enrolled</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num" id="counter-questions">0</div>
+      <div class="stat-label">Questions Total</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num" id="counter-chapters">0</div>
+      <div class="stat-label">Chapters Available</div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <div class="section-header">
+    <span class="section-tag">// HOW IT WORKS</span>
+    <h2 class="section-title">LEARN BY <span>DOING</span></h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🎯</span>
+      <div class="feature-title">SCENARIO-BASED</div>
+      <p class="feature-text">Every question is based on real-world cybersecurity situations you might actually encounter.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-title">INSTANT FEEDBACK</div>
+      <p class="feature-text">Get immediate explanations after each answer so you understand the "why" behind every concept.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏆</span>
+      <div class="feature-title">XP & REWARDS</div>
+      <p class="feature-text">Earn experience points, unlock specialized security badges, and build your Achievement Arsenal as your skills grow.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔐</span>
+      <div class="feature-title">3 CHAPTERS</div>
+      <p class="feature-text">Progress from beginner to advanced — covering passwords, phishing, networks, and more.</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapters-section" id="chapters">
+  <div class="section-header">
+    <span class="section-tag">// SELECT CHAPTER</span>
+    <h2 class="section-title">CHOOSE YOUR <span>MISSION</span></h2>
+  </div>
+
+  <div class="chapters-grid">
+    <div class="chapter-card ch1">
+      <div class="ch-glow"></div>
+      <div class="ch-number">01</div>
+      <div class="ch-icon">🛡️</div>
+      <div class="ch-label">// CHAPTER ONE</div>
+      <h3 class="ch-title">Passwords & Account Security</h3>
+      <p class="ch-desc">Learn how attackers crack passwords and what you can do to make your accounts nearly impossible to hack.</p>
+      <div class="ch-topics">
+        <div class="ch-topic">What makes a strong password?</div>
+        <div class="ch-topic">Two-factor authentication (2FA)</div>
+        <div class="ch-topic">Password managers explained</div>
+        <div class="ch-topic">Brute-force & dictionary attacks</div>
+        <div class="ch-topic">Account takeover prevention</div>
+      </div>
+      <div class="ch-meta">
+        <span class="ch-difficulty diff-beginner">BEGINNER</span>
+        <span class="ch-questions-count">10 QUESTIONS</span>
+      </div>
+      <button class="ch-start-btn" onclick="openQuiz(1)">▶ START CHAPTER 1</button>
     </div>
 
-    <script src="game.js"></script>
+    <div class="chapter-card ch2">
+      <div class="ch-glow"></div>
+      <div class="ch-number">02</div>
+      <div class="ch-icon">🎣</div>
+      <div class="ch-label">// CHAPTER TWO</div>
+      <h3 class="ch-title">Phishing & Social Engineering</h3>
+      <p class="ch-desc">Discover how cybercriminals manipulate people using fake emails, texts, and websites to steal your info.</p>
+      <div class="ch-topics">
+        <div class="ch-topic">Recognizing phishing emails</div>
+        <div class="ch-topic">Smishing & vishing attacks</div>
+        <div class="ch-topic">Fake login pages & spoofing</div>
+        <div class="ch-topic">Social engineering psychology</div>
+        <div class="ch-topic">Reporting suspicious messages</div>
+      </div>
+      <div class="ch-meta">
+        <span class="ch-difficulty diff-intermediate">INTERMEDIATE</span>
+        <span class="ch-questions-count">10 QUESTIONS</span>
+      </div>
+      <button class="ch-start-btn" onclick="openQuiz(2)">▶ START CHAPTER 2</button>
+    </div>
+
+    <div class="chapter-card ch3">
+      <div class="ch-glow"></div>
+      <div class="ch-number">03</div>
+      <div class="ch-icon">🌐</div>
+      <div class="ch-label">// CHAPTER THREE</div>
+      <h3 class="ch-title">Networks, Privacy & Malware</h3>
+      <p class="ch-desc">Understand how the internet works, how malware spreads, and how to protect your privacy online.</p>
+      <div class="ch-topics">
+        <div class="ch-topic">Public Wi-Fi dangers</div>
+        <div class="ch-topic">VPNs & encryption basics</div>
+        <div class="ch-topic">Malware, ransomware & viruses</div>
+        <div class="ch-topic">Cookies & digital privacy</div>
+        <div class="ch-topic">Safe browsing habits</div>
+      </div>
+      <div class="ch-meta">
+        <span class="ch-difficulty diff-advanced">ADVANCED</span>
+        <span class="ch-questions-count">10 QUESTIONS</span>
+      </div>
+      <button class="ch-start-btn" onclick="openQuiz(3)">▶ START CHAPTER 3</button>
+    </div>
+  </div>
+</section>
+
+<section class="features-section" id="achievements" style="background: var(--bg);">
+  <div class="section-header">
+    <span class="section-tag">// AGENT DOSSIER</span>
+    <h2 class="section-title">ACHIEVEMENT <span>ARSENAL</span></h2>
+    <p style="color: var(--muted); margin-top: 15px; font-size: 0.9rem;">Complete missions to earn specialized security clearances.</p>
+  </div>
+
+  <div class="features-grid" style="max-width: 900px; margin: 0 auto;">
+    <div class="feature-card" style="border-color: var(--neon); background: rgba(0,255,231,0.05);">
+      <div style="font-size: 3rem; margin-bottom: 10px; text-shadow: var(--glow);">🛡️</div>
+      <div class="feature-title" style="color: var(--neon);">CRYPTOGRAPHER</div>
+      <p class="feature-text">Mastered Password Security & 2FA Implementation.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: var(--success);">[ UNLOCKED ]</div>
+    </div>
+
+    <div class="feature-card locked-badge">
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">🎣</div>
+      <div class="feature-title" style="color: #666;">PHISH HUNTER</div>
+      <p class="feature-text">Identify and neutralize social engineering threats.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: #555;">[ LOCKED ]</div>
+    </div>
+
+    <div class="feature-card locked-badge">
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.5;">👁️</div>
+      <div class="feature-title" style="color: #666;">GHOST PROTOCOL</div>
+      <p class="feature-text">Secure network traffic and protect digital privacy.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: #555;">[ LOCKED ]</div>
+    </div>
+
+    <div class="feature-card locked-badge" style="border-style: dashed;">
+      <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.3;">👑</div>
+      <div class="feature-title" style="color: #666;">OVERLORD BANE</div>
+      <p class="feature-text">Defeat the Malware Overlord and secure the mainframe.</p>
+      <div style="margin-top: 15px; font-family: 'Space Mono'; font-size: 0.6rem; color: var(--danger);">[ CLASSIFIED ]</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">⬡ CYBERGUARD ACADEMY</div>
+  <p class="footer-text">Empowering the next generation of digital defenders. Learn to protect yourself and others in an increasingly connected world.</p>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+    <a href="#">For Educators</a>
+  </div>
+  <div class="footer-copy">© 2026 CYBERGUARD ACADEMY — ALL RIGHTS RESERVED</div>
+</footer>
+
+<div class="quiz-overlay" id="quizOverlay">
+  <div class="quiz-modal" id="quizModal">
+    <div class="quiz-header">
+      <div class="quiz-chapter-label" id="quizChapterLabel"></div>
+      <div class="quiz-title" id="quizTitle"></div>
+      <div class="xp-section" id="xpSection">
+        <span class="xp-label">XP</span>
+        <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpFill" style="width:0%; background: var(--neon);"></div></div>
+        <span id="xpCount" style="color:var(--neon); font-size:0.65rem;">0 XP</span>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="progressFill" style="width:0%;"></div>
+      </div>
+      <button class="quiz-close" onclick="closeQuiz()">✕</button>
+    </div>
+
+    <div class="quiz-body" id="quizBody">
+      <div class="question-counter" id="questionCounter"></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="tip-box" id="tipBox" style="display:none;">
+        <div class="tip-label">💡 TIP</div>
+        <div class="tip-text" id="tipText"></div>
+      </div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="feedback-box" id="feedbackBox">
+        <div class="feedback-title" id="feedbackTitle"></div>
+        <div class="feedback-text" id="feedbackText"></div>
+      </div>
+      <div class="quiz-actions">
+        <div class="score-display">Score: <span id="scoreDisplay">0</span></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">NEXT →</button>
+      </div>
+    </div>
+
+    <div class="results-screen" id="resultsScreen">
+      <div class="results-icon" id="resultsIcon"></div>
+      <div class="results-title" id="resultsTitle"></div>
+      <div class="results-score-big" id="resultsScoreBig"></div>
+      <div class="results-breakdown">
+        <div class="rb-item rb-correct">
+          <div class="rb-num" id="rbCorrect">0</div>
+          <div class="rb-label">Correct</div>
+        </div>
+        <div class="rb-item rb-wrong">
+          <div class="rb-num" id="rbWrong">0</div>
+          <div class="rb-label">Incorrect</div>
+        </div>
+        <div class="rb-item">
+          <div class="rb-num" id="rbXP" style="color:var(--neon)">0</div>
+          <div class="rb-label">XP Earned</div>
+        </div>
+      </div>
+      <p class="results-message" id="resultsMessage"></p>
+      <div class="results-actions">
+        <button class="btn-primary" onclick="retryQuiz()">↺ RETRY</button>
+        <button class="btn-secondary" onclick="closeQuiz()">BACK TO CHAPTERS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
