@@ -14,7 +14,7 @@ try {
 const sessionId = 'AGENT_' + Math.random().toString(36).substr(2, 5);
 
 // ========== GAME STATE ==========
-let unlockedChapter = 1;
+let unlockedChapter = 4;
 let totalPlayerXP = 0;
 
 let currentChapter = null;
@@ -26,71 +26,136 @@ let answered = false;
 // ========== QUIZ DATA ==========
 const quizData = {
   1: {
-    title: "Passwords & Account Security",
-    label: "// CHAPTER 01 — BEGINNER",
+    title: "The Logic of Passwords",
+    label: "// CHAPTER 01 — IDENTITY PROTECTION",
     color: "var(--neon)",
     questions: [
-      { q: "You need to create a password for your school email. Which of these options is the MOST secure?", options: ["alex2008", "MySchoolEmail!", "T7#mP!2kLw@9xQ", "password123"], answer: 2, explanation: "A strong password uses a mix of uppercase, lowercase, numbers, and special characters, and is at least 12 characters long. 'T7#mP!2kLw@9xQ' meets all these criteria. Avoid names, years, and obvious words.", tip: "Think of a password like a lock — the more complex the combination, the harder to crack." },
-      { q: "What does 2FA (Two-Factor Authentication) do to protect your account?", options: ["Makes your password twice as long", "Requires a second form of verification beyond your password", "Logs you in from two devices at once", "Stores two copies of your password"], answer: 1, explanation: "2FA adds a second layer of security. Even if someone steals your password, they still can't log in without the second factor (like a code sent to your phone or an authenticator app).", tip: "Always enable 2FA on important accounts like email, banking, and social media." },
-      { q: "Your friend says they use the same password for every account because it's easy to remember. What's the BIGGEST risk?", options: ["Their accounts will load slower", "If one account is hacked, all accounts are at risk", "They might forget the password", "Nothing — it's a smart strategy"], answer: 1, explanation: "This is called 'credential stuffing'. Hackers take leaked passwords from one site and try them on others. If you reuse passwords, one breach could compromise ALL your accounts.", tip: "Use a password manager to generate and store unique passwords for every site." },
-      { q: "Which of the following is the SAFEST place to store your passwords?", options: ["A sticky note on your monitor", "A text file called 'passwords.txt' on your desktop", "A trusted password manager app", "Your browser's basic autofill (no master password)"], answer: 2, explanation: "Password manager apps encrypt your passwords and require a master password. Sticky notes and unprotected files are easily seen by anyone with access to your computer.", tip: "Popular password managers include Bitwarden (free), 1Password, and Dashlane." },
-      { q: "You get an alert: 'Your password was found in a data breach.' What should you do FIRST?", options: ["Ignore it — it's probably spam", "Change the password on that site immediately", "Delete your account", "Tell your friends about the breach"], answer: 1, explanation: "Change the compromised password immediately. Then check if you used that password anywhere else and change it there too. Use a site like haveibeenpwned.com to check your email.", tip: "Sites like HaveIBeenPwned let you check if your email appeared in any known data breaches." },
-      { q: "What is a 'brute-force attack'?", options: ["Physically breaking into a server room", "A hacker guessing every possible password combination automatically", "Sending thousands of phishing emails", "Using a fake Wi-Fi hotspot"], answer: 1, explanation: "Brute-force attacks use automated tools to try millions of password combinations per second. Short, simple passwords can be cracked in seconds — complex, long ones take years.", tip: "Every extra character in a password dramatically increases the time needed to brute-force it." },
-      { q: "A website you use was hacked and your hashed password was stolen. Why is hashing good?", options: ["It makes passwords invisible to everyone", "It converts passwords into a scrambled code that's hard to reverse", "It deletes passwords after 30 days", "It stores your password in two locations"], answer: 1, explanation: "Hashing is a one-way function — it converts your password into a fixed string of characters. Good websites never store your actual password, just the hash. Even if leaked, the original is hard to recover.", tip: "Websites using outdated hashing (like MD5) are more vulnerable. Strong algorithms include bcrypt." },
-      { q: "Which is an example of a passphrase and why is it useful?", options: ["Xk!9#R2m", "correcthorsebatterystaple", "admin123", "JohnSmith1995"], answer: 1, explanation: "A passphrase uses multiple random words together. 'correcthorsebatterystaple' is long (28 chars), easy to remember, and much harder to crack than short complex passwords because of its length.", tip: "Length matters more than complexity. A 4-word passphrase beats a short jumble of symbols." },
-      { q: "Your school account has been locked after too many failed login attempts. What likely happened?", options: ["You typed your password correctly too many times", "Someone attempted a brute-force or credential stuffing attack", "The school's internet went down", "Your account expired"], answer: 1, explanation: "Account lockouts are a security measure that triggers after multiple failed login attempts. This protects against automated brute-force attacks. Change your password and enable 2FA after unlocking.", tip: "Account lockouts are a feature, not a bug — they're protecting you!" },
-      { q: "What is a 'dictionary attack'?", options: ["Looking up cybersecurity terms online", "An attack using common words and phrases as password guesses", "Stealing a physical dictionary", "Guessing every character combination randomly"], answer: 1, explanation: "Dictionary attacks use lists of common words, phrases, and passwords (like 'password', 'letmein', '123456') to guess login credentials. Avoid any real words or common phrases in passwords.", tip: "Millions of the most common passwords are compiled in lists hackers use for dictionary attacks." }
+      { 
+        q: "To protect your Student Portal, which password structure is mathematically the hardest for a hacker to crack?", 
+        options: ["Uts@2026", "Reagan_030628", "Sibu_Kampua_Enak!", "Password_123!"], 
+        answer: 2, 
+        explanation: "The logic here is Entropy. Long passphrases (sentences with spaces) are harder for computers to 'brute-force' than short passwords with symbols. A sentence is easy for you to remember but impossible for a bot to guess.",
+        tip: "Think Length > Complexity." 
+      },
+      { 
+        q: "What is the primary danger of using the same password for Games and Social Media?", 
+        options: ["Account loading delays", "Credential Stuffing attacks", "Social media shadowbans", "2FA will stop working"], 
+        answer: 1, 
+        explanation: "Hackers use 'Credential Stuffing' logic: if they steal your password from one site, they will immediately try that same password on your IG, Gmail, and Bank accounts. One leak equals total loss.",
+        tip: "Unique passwords isolate your risks." 
+      },
+      { 
+        q: "When using a public PC, why is clicking 'Never Save' not enough security?", 
+        options: ["It saves it anyway", "It creates a slow connection", "It doesn't clear the current session", "It alerts the admin"], 
+        answer: 2, 
+        explanation: "The logic of public privacy: 'Never' only stops future saves. If you don't manually clear the cache and Log Out, your active 'Session Cookie' stays in the browser, allowing the next user to enter your account.",
+        tip: "Always clear history and Log Out on public PCs." 
+      }
     ]
   },
   2: {
-    title: "Phishing & Social Engineering",
-    label: "// CHAPTER 02 — INTERMEDIATE",
+    title: "The 'App-First' Rule",
+    label: "// CHAPTER 02 — LOCAL SCAM DETECTION",
     color: "var(--neon2)",
     questions: [
-      { q: "You receive an email saying 'Your Netflix account has been suspended! Click here to verify your payment.' What should you do?", options: ["Click the link and enter your details", "Forward it to all your friends as a warning", "Go directly to Netflix.com in a new tab to check your account", "Reply asking for more information"], answer: 2, explanation: "Never click links in suspicious emails. Go directly to the website by typing the URL yourself. Phishing emails create fake urgency to trick you into clicking without thinking.", tip: "Legitimate companies never ask for your password via email." },
-      { q: "What is 'spear phishing' different from regular phishing?", options: ["It uses fish-themed graphics", "It targets a specific person using their personal information", "It only happens on fishing websites", "It's a safer type of phishing"], answer: 1, explanation: "Spear phishing is highly targeted — attackers research the victim and personalize the message using real details (your name, employer, friends) to make it more convincing.", tip: "The more personal an unexpected email feels, the more suspicious you should be." },
-      { q: "An email claims to be from your school IT department asking for your username and password to 'fix your account'. This is MOST LIKELY:", options: ["A legitimate request — IT needs your credentials to help you", "A phishing attack — IT staff never need your password", "A routine security check", "An automated system email"], answer: 1, explanation: "No legitimate IT professional or organization will ever ask for your password. They have backend access to fix accounts without needing your credentials. This is a classic social engineering trick.", tip: "Remember: Your password is YOUR secret. Not even your IT department should know it." },
-      { q: "You get a text saying 'Congrats! You won a $500 gift card. Click to claim: bit.ly/claimprize99'. What should you do?", options: ["Click the link quickly before the offer expires", "Reply 'STOP' to unsubscribe", "Ignore and delete — this is a smishing (SMS phishing) attack", "Forward it to friends so they can claim prizes too"], answer: 2, explanation: "This is 'smishing' — phishing via SMS. Shortened URLs hide the real destination. Unsolicited prize messages are almost always scams designed to steal info or install malware.", tip: "If something sounds too good to be true — a prize you never entered — it's a scam." },
-      { q: "What clues suggest an email might be phishing? (Choose the BEST answer)", options: ["The email has a company logo", "Urgency, misspellings, mismatched sender email, and suspicious links", "The email has a lot of images", "The email arrived on a weekend"], answer: 1, explanation: "Red flags include: fake urgency ('Act NOW!'), misspellings, sender email that doesn't match the company (e.g., support@netfl1x-help.com), and links that go to unexpected domains.", tip: "Hover over links (don't click!) to preview the actual URL destination." },
-      { q: "What is 'vishing'?", options: ["Phishing through video calls", "Voice phishing — scam phone calls pretending to be trusted organizations", "A type of computer virus", "Phishing on gaming platforms"], answer: 1, explanation: "Vishing uses phone calls. Scammers impersonate banks, government agencies (like IRS/tax services), or tech support to extract personal info or money. Always verify by calling back on official numbers.", tip: "If someone calls you claiming urgency, hang up and call the organization back using their official number." },
-      { q: "A hacker sends you a Facebook message pretending to be your friend, saying they're stranded and need money. How do you verify?", options: ["Send the money — it's an emergency!", "Call or text your friend directly using their phone number you already have", "Reply to the Facebook message asking for more details", "Send only half the money to be safe"], answer: 1, explanation: "Account hijacking is common. Hackers take over accounts and message all contacts with emergency stories. Always verify through a separate, trusted channel (phone call) before acting.", tip: "Scammers count on you acting fast without thinking. Always pause and verify independently." },
-      { q: "What is a 'pretexting' attack?", options: ["Sending fake text messages", "Creating a fabricated scenario (pretext) to manipulate someone into revealing information", "Prefixing malware with innocent text", "A type of network attack"], answer: 1, explanation: "Pretexting involves making up a believable story to gain trust. For example, an attacker might impersonate a researcher, bank employee, or HR rep to get sensitive information.", tip: "Legitimate organizations won't call out of nowhere asking you to verify sensitive info." },
-      { q: "You notice a link in an email reads 'www.paypa1.com' instead of 'www.paypal.com'. This technique is called:", options: ["Domain squatting", "Typosquatting / URL spoofing", "DNS poisoning", "Cross-site scripting"], answer: 1, explanation: "Typosquatting replaces characters with visually similar ones (l→1, o→0, rn→m). At a glance they look identical. Always check URLs carefully before entering credentials.", tip: "Look carefully at every character in a URL — especially on mobile where text is smaller." },
-      { q: "After receiving a suspicious email, what's the BEST course of action?", options: ["Delete it and never think about it again", "Report it to your email provider as phishing AND alert your IT/school admin", "Reply to ask if it's really a scam", "Forward it to see what happens"], answer: 1, explanation: "Reporting phishing helps protect everyone. Email providers use reports to improve filters. Reporting to IT/school admins helps them warn others. Most email clients have a 'Report Phishing' button.", tip: "You might be the first to catch a phishing campaign — your report can protect hundreds of others." }
+      { 
+        q: "A WhatsApp message from 'S Pay Global' claims you won RM50 with a link. Your move?", 
+        options: ["Click to check", "Verify only via the official App", "Forward to friends", "Use a fake phone number"], 
+        answer: 1, 
+        explanation: "The 'App-First' logic: Official platforms will NEVER send a link in a chat to give you money. If a message has a link, it is a redirect trap. Always open the official App manually to check notifications.",
+        tip: "If it's real, it's in the App." 
+      },
+      { 
+        q: "An SMS says your parcel is held for a RM1.50 fee. Why is this 'low fee' dangerous?", 
+        options: ["The fee is too high", "It is a credit card data harvester", "Courier apps are always free", "It tracks your GPS"], 
+        answer: 1, 
+        explanation: "Scammers use the 'Low Friction' logic. They ask for a tiny amount (RM1.50) so you don't think twice before entering your card details. Once you enter them, they have your full card info for future thefts.",
+        tip: "Never pay fees via SMS links." 
+      },
+      { 
+        q: "A TikTok ad for DBOS Bank asks to download an APK file. Why is this a red flag?", 
+        options: ["APK files are for iPhones only", "DBOS doesn't have an app", "Third-party APKs can bypass phone security", "The interest rate is too low"], 
+        answer: 2, 
+        explanation: "The 'Trusted Source' logic: APK files installed from browsers bypass official store security. These files often contain 'SmsSpy' which silently steals your Bank OTPs from your text messages.",
+        tip: "Only install from official stores." 
+      },
+      { 
+        q: "A Facebook post asks for your phone number to claim a subsidy. The risk?", 
+        options: ["Your phone will ring too much", "Data harvesting for targeted scams", "Facebook will ban you", "No risk, it's public info"], 
+        answer: 1, 
+        explanation: "The 'Data Harvesting' logic: Scammers collect phone numbers to create a 'Sucker List'. They will call you later pretending to be your Bank or the Government, using your name to sound more believable.",
+        tip: "Your identity info is not for comments." 
+      }
     ]
   },
   3: {
-    title: "Networks, Privacy & Malware",
-    label: "// CHAPTER 03 — ADVANCED",
+    title: "Permission Logic",
+    label: "// CHAPTER 03 — DATA PRIVACY",
     color: "var(--neon3)",
     questions: [
-      { q: "You're at a coffee shop and see two Wi-Fi networks: 'CoffeeShopFree' and 'CoffeeShop_Official'. The staff says the official one is the second. Why is this important?", options: ["The first network has better speed", "The first could be a 'evil twin' fake hotspot set up by a hacker to intercept your traffic", "There's no difference between them", "The first is for employees only"], answer: 1, explanation: "An 'evil twin' is a fake Wi-Fi hotspot that mimics a legitimate one. When you connect, hackers can see all your unencrypted traffic, potentially stealing passwords and data. Always verify with staff.", tip: "On public Wi-Fi, use a VPN and avoid logging into sensitive accounts like banking." },
-      { q: "What does a VPN (Virtual Private Network) do?", options: ["Makes your internet faster", "Encrypts your internet traffic and hides your IP address", "Blocks all ads", "Gives you free internet access"], answer: 1, explanation: "A VPN creates an encrypted tunnel for your internet traffic, making it unreadable to others on the network. It also masks your real IP address, adding privacy. Essential on public Wi-Fi.", tip: "Choose reputable paid VPNs — free VPNs often sell your data, defeating the purpose." },
-      { q: "What is ransomware?", options: ["Software that speeds up your computer for a fee", "Malware that encrypts your files and demands payment to restore access", "A type of antivirus program", "Software that randomly deletes files"], answer: 1, explanation: "Ransomware encrypts your files so you can't access them, then demands a ransom (usually cryptocurrency) for the decryption key. Victims lose photos, documents, and more. Prevention: regular backups!", tip: "The 3-2-1 backup rule: 3 copies of data, on 2 different media, with 1 stored offsite." },
-      { q: "You download a free game from an unofficial site. Shortly after, your computer gets slow and shows random ads. You likely have:", options: ["A hardware problem", "Adware or malware bundled with the fake software", "Too many browser tabs open", "A weak Wi-Fi signal"], answer: 1, explanation: "Malicious downloads often bundle adware, spyware, or trojans. Always download software from official sources. Free games from random sites are a common delivery method for malware.", tip: "Stick to official app stores and manufacturer websites for all software downloads." },
-      { q: "What is 'HTTPS' and why does it matter when browsing?", options: ["A fast internet protocol", "An encrypted version of HTTP that protects data between your browser and the website", "A browser extension", "A type of firewall"], answer: 1, explanation: "HTTPS uses SSL/TLS encryption to protect data in transit. Without it (HTTP only), anyone on your network could read what you send — including passwords. Look for the padlock icon in your browser.", tip: "Never enter passwords on sites that show 'Not Secure' or lack the padlock icon." },
-      { q: "What are 'cookies' in web browsing (the security context)?", options: ["Edible treats sent by websites", "Small data files stored by websites to remember your preferences and track activity", "Pop-up advertisements", "Cached images from websites"], answer: 1, explanation: "Cookies store session info, preferences, and tracking data. Third-party cookies from advertisers follow you across different websites to build a profile of your interests. You can manage or block them in settings.", tip: "Review cookie settings on sites you visit and periodically clear your browser cookies." },
-      { q: "What's the difference between a virus and a trojan horse in malware terms?", options: ["There is no difference", "A virus self-replicates and spreads; a trojan disguises itself as legitimate software to trick you into installing it", "A trojan is more dangerous, a virus is harmless", "Trojans only affect Macs, viruses only affect Windows"], answer: 1, explanation: "Viruses attach to files and spread when those files are shared. Trojans appear as legitimate programs (games, tools) but contain hidden malicious code. Both cause serious harm but spread differently.", tip: "Keep your antivirus software updated — it knows the signatures of thousands of malware types." },
-      { q: "You receive a pop-up that says 'VIRUS DETECTED! Call Microsoft Support at 1-800-XXX-XXXX immediately!' What should you do?", options: ["Call the number right away", "Close the browser tab — this is a 'scareware' social engineering scam", "Buy the antivirus they're selling", "Enter your credit card to remove the virus"], answer: 1, explanation: "This is 'scareware' — fake security alerts designed to scare you into calling scammers or buying fake software. Microsoft never contacts users this way. Close the tab (use Task Manager if needed).", tip: "Real security warnings come from your installed antivirus software — not random web pop-ups." },
-      { q: "What is a 'firewall' and how does it protect you?", options: ["Physical barrier preventing fire from reaching servers", "Software/hardware that monitors and filters network traffic based on security rules", "A tool to encrypt your hard drive", "A backup system for your data"], answer: 1, explanation: "Firewalls act as gatekeepers, examining network traffic and blocking anything that doesn't meet security rules. They can stop unauthorized access to your device and block certain types of malware.", tip: "Keep your OS firewall turned on. Routers also have built-in firewalls for network protection." },
-      { q: "Which practice BEST protects your privacy online over the long term?", options: ["Using the same email for everything to keep it simple", "Using unique emails per service, reviewing app permissions, using a VPN, and regularly updating software", "Keeping all social media profiles public so you 'have nothing to hide'", "Disabling automatic updates to avoid bugs"], answer: 1, explanation: "True privacy requires multiple layers: compartmentalizing accounts, minimal data sharing, strong access controls, encrypted connections, and keeping software updated to patch vulnerabilities.", tip: "Privacy isn't about hiding — it's about controlling who has access to your personal data." }
+      { 
+        q: "A simple 'Compass App' requests access to your 'Contacts'. What is wrong here?", 
+        options: ["The Speed Principle", "The Least Privilege Principle", "The Open Source Rule", "The Data Sync Rule"], 
+        answer: 1, 
+        explanation: "The logic of 'Least Privilege': An app should only have the permissions it needs to function. A compass needs GPS, not your contacts. Excessive requests are a sign of data harvesting.",
+        tip: "Question every permission." 
+      },
+      { 
+        q: "Why is it risky to log into your bank while using 'Free Wi-Fi' at a cafe?", 
+        options: ["The Wi-Fi is too slow", "Risk of a Man-in-the-Middle attack", "Your battery will drain", "Cafe Wi-Fi is only for browsing"], 
+        answer: 1, 
+        explanation: "The 'Evil Twin' logic: A hacker can create a Wi-Fi hotspot with the same name as the cafe. If you connect, they can act as a 'Man-in-the-Middle', seeing exactly what you type into your banking app.",
+        tip: "Use Mobile Data for sensitive tasks." 
+      },
+      { 
+        q: "You post a selfie at UTS with your Student ID visible. Why is blurring it necessary?", 
+        options: ["To look more professional", "To prevent identity theft via barcodes", "To hide your age", "To avoid school punishment"], 
+        answer: 1, 
+        explanation: "The 'Digital Footprint' logic: Barcodes and IDs contain encoded data that can be used to track your location, clone your student card, or find your home address. Once posted, it is permanent.",
+        tip: "The background matters as much as your face." 
+      },
+      { 
+        q: "A Facebook quiz game asks for access to your 'Friends List'. Why?", 
+        options: ["To show results to them", "To build a social map for future scams", "To verify you are human", "To help you find new friends"], 
+        answer: 1, 
+        explanation: "The 'API Scraping' logic: Quiz apps are often fronts for data firms. By accessing your friends list, they can target your friends with fake messages that look like they came from you.",
+        tip: "Don't trade privacy for a quiz result." 
+      }
     ]
   },
   4: {
-    title: "Social Media & Privacy",
-    label: "// CHAPTER 04 — EXPERT",
+    title: "The Human Element",
+    label: "// CHAPTER 04 — SOCIAL RISK",
     color: "var(--neon4)",
     questions: [
-      { q: "You are going on a two-week family vacation. When is the safest time to post your vacation photos on Instagram/TikTok?", options: ["As soon as you arrive at the hotel", "Live-stream your daily activities", "Tag your location in every post", "After you have returned home"], answer: 3, explanation: "Posting while you are away announces to the world that your house is empty, which is a major security risk for burglary.", tip: "Enjoy the moment, post the memories later." },
-      { q: "You download a free 'Flashlight' app, but it asks for permission to access your Contacts and Microphone. What should you do?", options: ["Allow it, apps need permissions to work", "Deny those permissions or uninstall the app", "Only allow Contacts, not Microphone", "Pay for the premium version"], answer: 1, explanation: "A flashlight app only needs access to your camera's flash. Apps asking for unrelated permissions are often harvesting and selling your personal data.", tip: "Always practice the 'Principle of Least Privilege' — only give apps exactly what they need." },
-      { q: "Someone in a gaming Discord server starts harassing you and calling you names. What is the BEST response?", options: ["Insult them back to defend yourself", "Challenge them to a 1v1 match", "Block, report them to moderators, and ignore them", "Share their username on social media to cancel them"], answer: 2, explanation: "Engaging with cyberbullies or trolls usually escalates the situation. Blocking and reporting cuts off their access to you and alerts platform admins.", tip: "Don't feed the trolls. Your mental peace is more important than an online argument." },
-      { q: "You see an influencer posting: 'Tag 3 friends and click the link in my bio to win a free PS5!' Why is this dangerous?", options: ["It's usually a scam to farm engagement and lead you to a phishing link", "The PS5 might be broken", "You might have to pay shipping", "There is no danger, it's just marketing"], answer: 0, explanation: "Scammers frequently hijack verified accounts or create fake ones to run fake giveaways. The link usually steals login credentials or installs malware.", tip: "If you have to click a shady link to claim a prize, you are the product." },
-      { q: "What does it mean when experts say 'The internet is forever' regarding your Digital Footprint?", options: ["Servers never run out of power", "Deleted posts can still be saved via screenshots or archived by search engines", "Social media companies legally can't delete your account", "Your Wi-Fi history is saved forever"], answer: 1, explanation: "Once something is online, you lose control of it. Even if you delete a bad post or embarrassing photo, someone else may have already screenshotted it.", tip: "Before you post, ask yourself: 'Would I want a future employer or college admissions officer to see this?'" },
-      { q: "You take a great selfie on your first day of school, but your school ID badge is clearly visible. What should you do?", options: ["Post it everywhere", "Blur or crop out the ID badge before posting", "Only post it on your public story", "Add a location tag so people know what school it is"], answer: 1, explanation: "School IDs often contain full names, barcodes, or student numbers. Posting this publicly exposes your identity and exact daily location to strangers.", tip: "Always review photos for sensitive background information before hitting send." },
-      { q: "Why is it highly recommended to set your personal social media accounts (like Instagram or TikTok) to 'Private'?", options: ["It stops algorithms from showing you ads", "It gives you total control over who can view, save, and comment on your posts", "It makes your internet connection faster", "It prevents you from getting banned"], answer: 1, explanation: "Public accounts can be viewed by anyone, meaning your photos and data can be scraped by scammers or stalkers. A private account acts as a firewall for your personal life.", tip: "Your personal life isn't public property. Gatekeep your privacy." },
-      { q: "You find a fun quiz app that asks you to 'Log in with Facebook/Google' to see your results. What is the risk?", options: ["The quiz might be boring", "You are giving a third-party app access to your profile data, contacts, and email", "It will log you out of your account", "It will change your password automatically"], answer: 1, explanation: "Using 'Single Sign-On' (SSO) is convenient, but shady apps use it to harvest your personal data. Always check what permissions the app is requesting before agreeing.", tip: "If you must use these apps, review and revoke third-party app access regularly in your account settings." },
-      { q: "You love using the 'Check-in' feature or location stickers on Snapchat/Instagram every time you visit your favorite cafe. What is the danger?", options: ["You might run out of data", "It drains your battery faster", "It creates a predictable pattern of your daily routines for stalkers", "It costs money to use location features"], answer: 2, explanation: "Constantly broadcasting your real-time location creates a map of your habits. Malicious individuals can use this to know exactly where you are—and where you aren't.", tip: "Turn off precise location sharing for social media apps in your phone settings." },
-      { q: "You see a viral video on TikTok of a politician or celebrity saying something incredibly offensive and out of character. What should you consider FIRST?", options: ["Share it immediately to spread awareness", "It might be an AI-generated 'Deepfake' designed to spread misinformation", "Leave an angry comment", "Assume it is 100% real because it's a video"], answer: 1, explanation: "Deepfakes use AI to manipulate audio and video, making it look like someone said or did something they didn't. Always verify shocking videos through multiple reliable news sources.", tip: "Seeing is no longer believing. Think critically and verify before you share." }
+      { 
+        q: "A 'Pro' gamer offers to boost your rank if you share your password. The risk?", 
+        options: ["He wants to see your skins", "Account hijacking and resale", "He needs to verify your level", "There is no scam"], 
+        answer: 1, 
+        explanation: "The 'Authority' logic: Scammers pretend to be experts to make you lower your guard. Once they have your password, they will change your recovery email and sell your account.",
+        tip: "Skill is earned, passwords are kept." 
+      },
+      { 
+        q: "An email warns your account will be banned in 1 hour. Why the short time limit?", 
+        options: ["System server resets", "To force 'Panic-Mode' thinking", "Official policy rule", "To save storage space"], 
+        answer: 1, 
+        explanation: "The 'Urgency' logic: Fear and rush bypass your logical brain. If you are panicked, you won't notice the fake sender email address. Real companies give you days to resolve issues.",
+        tip: "Panic is the scammer's best friend." 
+      },
+      { 
+        q: "A friend DMs you: 'OMG, is this you in this video?? [Link]'. Why call them first?", 
+        options: ["To see if the video is funny", "To verify their account hasn't been hacked", "To ask for the video name", "To check their data connection"], 
+        answer: 1, 
+        explanation: "The 'Social Trust' logic: Scammers hack one person, then send phishing links to everyone on their list. If it looks out of character, verify via a different channel (like a call).",
+        tip: "Verify outside the chat." 
+      },
+      { 
+        q: "Someone is being bullied in your group chat. Why is 'Reporting' the best move?", 
+        options: ["Reporting is faster", "It creates a digital evidence trail", "Fighting back uses too much data", "Bullies are always right"], 
+        answer: 1, 
+        explanation: "The 'Evidence' logic: Fighting back escalates the anger and can make YOU look like the bully. Reporting creates a timestamped log that platform admins can use to take action.",
+        tip: "Report to end the cycle." 
+      }
     ]
   }
 };
@@ -230,41 +295,48 @@ function nextQuestion() {
 }
 
 async function showResults() {
+  // 1. 切换 UI 界面
   document.getElementById('quizBody').style.display = 'none';
   const results = document.getElementById('resultsScreen');
   results.classList.add('show');
 
+  // 2. 计算成绩
   const data = quizData[currentChapter];
   const total = data.questions.length;
   const correct = score / 100;
   const wrong = total - correct;
   const pct = Math.round((correct / total) * 100);
 
+  // 3. 更新进度条
   document.getElementById('progressFill').style.width = '100%';
 
   let icon, title, msg;
+  
+  // 4. 处理及格/不及格逻辑
   if (pct >= 50) { 
       icon = '🏆'; 
       title = 'SECTOR SECURED!'; 
       msg = "Great work! You have successfully mastered this chapter."; 
       
-      // Update Global XP safely without crashing
       totalPlayerXP += score;
       const navXpEl = document.getElementById('navXpCount');
       if(navXpEl) navXpEl.textContent = totalPlayerXP + " XP";
 
-      // Unlock next chapter logic visually (Cap at Chapter 4)
       if (currentChapter === unlockedChapter && unlockedChapter < 4) {
           unlockedChapter++;
           const nextCard = document.getElementById(`chCard${unlockedChapter}`);
           if (nextCard) nextCard.classList.remove('locked');
       }
 
-      // Safely save progress to Supabase
+      // 存储进度到 game_scores 表
       if (supabaseClient) {
           try {
-              await supabaseClient.from('game_scores').upsert({ session_id: sessionId, score: totalPlayerXP, level: unlockedChapter });
-          } catch(e) { console.log("Offline mode: Score not saved to database."); }
+              await supabaseClient.from('game_scores').upsert({ 
+                  session_id: sessionId, 
+                  score: totalPlayerXP, 
+                  level: unlockedChapter 
+              });
+          } catch(e) { console.log("Offline mode: Score not saved."); }
       }
 
   } else { 
@@ -272,14 +344,39 @@ async function showResults() {
       title = 'KEEP LEARNING!'; 
       msg = "Cybersecurity takes practice. Review the chapter materials and try again."; 
   }
+  
+  // 5. 生成风险评估
+  let riskAnalysis = "";
+  if (pct < 60) {
+    riskAnalysis = "CRITICAL RISK: You are highly vulnerable to local scams. Your instinct to trust digital requests needs immediate adjustment.";
+  } else if (pct < 90) {
+    riskAnalysis = "MODERATE RISK: You understand the basics, but 'ambiguous' traps still catch you. Focus on verifying official channels.";
+  } else {
+    riskAnalysis = "LOW RISK: Agent, your digital defense is solid. You have successfully internalized the core logic of cybersecurity.";
+  }
 
+  // 6. 更新 UI 内容（注意：这里只赋值一次，避免覆盖）
   document.getElementById('resultsIcon').textContent = icon;
   document.getElementById('resultsTitle').textContent = title;
   document.getElementById('resultsScoreBig').textContent = pct + '%';
   document.getElementById('rbCorrect').textContent = correct;
   document.getElementById('rbWrong').textContent = wrong;
   document.getElementById('rbXP').textContent = xp;
-  document.getElementById('resultsMessage').textContent = msg;
+  
+  // 使用 innerHTML 显示加粗的风险评估和消息内容
+  document.getElementById('resultsMessage').innerHTML = `<strong>${riskAnalysis}</strong><br><br>${msg}`;
+
+  // 7. 存储详细结果到 game_results 表供分析
+  if (supabaseClient) {
+      try {
+          await supabaseClient.from('game_results').insert({
+              unique_id: sessionId, 
+              chapter: currentChapter,
+              score: pct,
+              status: riskAnalysis
+          });
+      } catch(e) { console.log("Offline mode: Results not saved."); }
+  }
 }
 
 function retryQuiz() { openQuiz(currentChapter); }
