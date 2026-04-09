@@ -27,7 +27,7 @@ let answered = false;
 // Dynamic Brands to prevent rote memorization
 const scamBrands = ["S Pay Global", "ShopeePay", "GrabPay", "Sarawak Energy", "NinjaVan"];
 
-// ========== FULL 15-QUESTION LOGIC DATA ==========
+// ========== 10-QUESTION CORE LOGIC DATA (FYP OPTIMIZED) ==========
 const quizData = {
   1: {
     title: "The Logic of Passwords",
@@ -47,13 +47,6 @@ const quizData = {
         answer: 1, 
         explanation: "Hackers use 'Credential Stuffing' logic: if they steal your password from a small, weak website (like a game forum), they will immediately try that same password on your IG, Gmail, and Bank. One leak equals total loss.",
         tip: "Unique passwords isolate your risks." 
-      },
-      { 
-        q: "When a public browser at a cybercafe asks to 'Save Password', why is clicking 'Never' NOT enough to protect you?", 
-        options: ["It saves it anyway", "It creates a slow connection", "It doesn't clear the current session", "It alerts the admin"], 
-        answer: 2, 
-        explanation: "The logic of public privacy: 'Never' only stops future saves. If you don't manually clear the cache and Log Out, your active 'Session Cookie' stays in the browser. The next student can open the page and be instantly logged into your account.",
-        tip: "Always clear history and Log Out on public PCs." 
       }
     ]
   },
@@ -82,13 +75,6 @@ const quizData = {
         answer: 2, 
         explanation: "The 'Trusted Source' logic: APK files installed directly from browsers bypass the security scans of official app stores. These files often contain 'SmsSpy' malware which silently reads and steals your Bank OTPs from your text messages.",
         tip: "Only install from official stores." 
-      },
-      { 
-        q: "A Facebook post claims a RM200 Youth Subsidy is available and asks for your phone number in the comments. The risk?", 
-        options: ["Your phone will ring too much", "Data harvesting for targeted scams", "Facebook will ban you", "No risk, it's public info"], 
-        answer: 1, 
-        explanation: "The 'Data Harvesting' logic: Scammers scrape phone numbers from comments to create a 'Sucker List'. They will call you months later pretending to be your Bank or the Government, using your name and number to sound incredibly real.",
-        tip: "Your identity info is not for comments." 
       }
     ]
   },
@@ -117,13 +103,6 @@ const quizData = {
         answer: 1, 
         explanation: "The 'Digital Footprint' logic: Barcodes and IDs contain encoded personal data that can be used to track your location, clone your student card, or find your home address. Once posted online, you can never fully delete it.",
         tip: "The background matters as much as your face." 
-      },
-      { 
-        q: "A Facebook quiz game asks for access to your 'Friends List' to tell you your future. Why do they want it?", 
-        options: ["To show your results to them", "To build a social map for future scams", "To verify you are human", "To help you find new friends"], 
-        answer: 1, 
-        explanation: "The 'API Scraping' logic: Free quiz apps are often fronts for data firms. By accessing your friends list, they can target your friends with fake messages that look exactly like they came from you.",
-        tip: "Don't trade privacy for a quiz result." 
       }
     ]
   },
@@ -132,13 +111,6 @@ const quizData = {
     label: "// MISSION 04",
     color: "var(--neon4)",
     questions: [
-      { 
-        q: "A 'Pro' in Valorant offers to boost your rank if you share your password. What is the scam logic here?", 
-        options: ["He wants to see your skins", "Account hijacking and resale", "He needs to verify your level", "There is no scam"], 
-        answer: 1, 
-        explanation: "The 'Authority' logic: Scammers pretend to be experts to make you lower your guard. Once they have your password, they will instantly change your recovery email and sell your account to someone else.",
-        tip: "Skill is earned, passwords are kept." 
-      },
       { 
         q: "An email warns your account will be banned in 1 hour if you don't click 'Verify'. Why the 1-hour limit?", 
         options: ["System server resets", "To force 'Panic-Mode' thinking", "Official policy rule", "To save storage space"], 
@@ -152,13 +124,6 @@ const quizData = {
         answer: 1, 
         explanation: "The 'Social Trust' logic: Scammers hack one person, then send phishing links to everyone on their friends list. If a message looks out of character, always verify it via a completely different channel (like a phone call).",
         tip: "Verify outside the chat." 
-      },
-      { 
-        q: "Someone is being bullied in your group chat. Why is 'Reporting' logically better than 'Fighting Back'?", 
-        options: ["Reporting is faster", "It creates a digital evidence trail", "Fighting back uses too much data", "Bullies are always right"], 
-        answer: 1, 
-        explanation: "The 'Evidence' logic: Fighting back escalates the anger and can make YOU look like the bully to moderators. Reporting creates a timestamped system log that platform admins can use to permanently ban the harasser.",
-        tip: "Report to end the cycle." 
       }
     ]
   }
@@ -180,14 +145,13 @@ function animateCounter(id, target, suffix = '') {
 window.addEventListener('load', () => {
   setTimeout(() => {
     animateCounter('counter-students', 12847);
-    animateCounter('counter-questions', 15); // Updated to 15
+    animateCounter('counter-questions', 10); // Changed to 10
     animateCounter('counter-chapters', 4);
   }, 500);
 });
 
 // ========== NAVIGATION & QUIZ LOGIC ==========
 function scrollToChapters() {
-  // Capture the Unique ID from the HTML input if the user typed it
   const idInput = document.getElementById('participantId');
   if (idInput && idInput.value.trim() !== '') {
     sessionId = idInput.value.trim();
@@ -196,7 +160,6 @@ function scrollToChapters() {
 }
 
 function openQuiz(chapter) {
-  // NO LOCKS - Examiner can open any chapter
   currentChapter = chapter;
   currentQ = 0;
   score = 0;
@@ -226,7 +189,6 @@ function renderQuestion() {
   let q = data.questions[currentQ];
   answered = false;
 
-  // DYNAMIC INJECTION: Replace {BRAND} with a random local brand
   let randomBrand = scamBrands[Math.floor(Math.random() * scamBrands.length)];
   let dynamicText = q.q.replace(/{BRAND}/g, randomBrand);
 
@@ -327,7 +289,6 @@ async function showResults() {
       if(navXpEl) navXpEl.textContent = totalPlayerXP + " XP";
   }
 
-  // --- RISK DOSSIER LOGIC ---
   let riskAnalysis = "";
   if (pct < 60) {
     riskAnalysis = "CRITICAL RISK: You are highly vulnerable to local scams. Your instinct to trust digital requests needs immediate adjustment.";
@@ -345,7 +306,6 @@ async function showResults() {
   document.getElementById('rbXP').textContent = xp;
   document.getElementById('resultsMessage').innerHTML = `<strong>AGENT DOSSIER:</strong><br>${riskAnalysis}`;
 
-  // SAVE TO SUPABASE USING UNIQUE ID
   if (supabaseClient) {
       try {
           await supabaseClient.from('game_results').insert({
@@ -367,6 +327,13 @@ function closeQuiz() {
 
 document.getElementById('quizOverlay').addEventListener('click', function(e) {
   if (e.target === this) closeQuiz();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+      closeQuiz();
+      closeMinigame();
+  }
 });
 
 // ========== NEW: HACKER SIMULATION (CONSEQUENCE LEARNING) ==========
@@ -408,19 +375,16 @@ function triggerHackerSim(message) {
 
 // ========== RANDOM ENCOUNTER TRAPS LOGIC ==========
 window.addEventListener('load', () => {
-    // 1. The Reward Popup (Triggers at 2 seconds)
     setTimeout(() => {
         const overlay = document.getElementById('initial-scam-overlay');
         if(overlay) overlay.style.display = 'flex';
     }, 2000);
 
-    // 2. The Evil Cookie Banner (Triggers at 6 seconds)
     setTimeout(() => {
         const cookieBanner = document.getElementById('evil-cookie-banner');
         if (cookieBanner) cookieBanner.style.bottom = '0';
     }, 6000);
 
-    // 3. The Fake Support Widget (Triggers at 12 seconds)
     setTimeout(() => {
         const widget = document.getElementById('fake-support-widget');
         if (widget) widget.style.transform = 'translateY(0)';
@@ -461,6 +425,253 @@ function grantGlobalXP(amount) {
     if (navXpEl) navXpEl.textContent = totalPlayerXP + " XP";
 }
 
-// ========== MINIGAME (PHISHING INSPECTOR) HAS BEEN LEFT INTACT BELOW ==========
-// (If you still use the minigame from the original file, it will work perfectly here, 
-// but the core FYP logic assessment above is what runs the main chapters).
+// ========== MINIGAME (PHISHING INSPECTOR) RESTORED ==========
+let flagsFound = 0;
+let currentMgLevel = 0;
+
+const mgScenarios = [
+  {
+    htmlContent: `
+    <div class="fake-email">
+      <div class="email-header">
+        <div class="email-row"><strong>From:</strong> <span class="clickable-flag" onclick="flagFound(this, 'Sender is typosquatting (paypa1 instead of paypal).')">Support Team &lt;security@paypa1-update.com&gt;</span></div>
+        <div class="email-row"><strong>To:</strong> Undisclosed Recipients</div>
+        <div class="email-row"><strong>Subject:</strong> <span style="color:#d32f2f; font-weight:bold;">URGENT: Your Account Will Be Suspended!</span></div>
+      </div>
+      <div class="email-body">
+        <p><span class="clickable-flag" onclick="flagFound(this, 'Generic greeting. Real companies use your actual name.')">Dear Valued Customer,</span></p>
+        <p>We have detected unusual activity on your account. For your protection, your access has been temporarily restricted.</p>
+        <p>You must verify your identity within <strong>24 hours</strong> or your account will be permanently deleted.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <span class="clickable-flag btn-fake" onclick="flagFound(this, 'Hovering shows a suspicious URL that does not go to the real website.')">VERIFY ACCOUNT NOW</span>
+          <div style="font-size:0.7rem; color:gray; margin-top:5px;">(Link points to: http://login-verify-account123.net)</div>
+        </div>
+        <p>Thank you,<br>The Security Team</p>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-phone">
+      <div class="phone-header">
+        <span class="clickable-flag" onclick="flagFound(this, 'Official delivery services use 5-6 digit shortcodes, not random full phone numbers.')">+1 (402) 883-9182</span>
+      </div>
+      <div class="phone-body">
+        <div class="sms-bubble">
+          <span class="clickable-flag" onclick="flagFound(this, 'Misspelled company name (UPS-Express instead of UPS) to avoid spam filters.')">UPS-Express:</span> Your package delivery has been <span class="clickable-flag" onclick="flagFound(this, 'Creating fake urgency/panic to make you click without thinking.')">halted due to an unpaid shipping fee of $1.99.</span><br><br>
+          Please pay immediately to release your package:<br>
+          <span style="color:#007aff; text-decoration:underline;">http://bit.ly/ups-fee-442</span>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-dm">
+      <div class="dm-header">@GamerKing99 (Not in server)</div>
+      <div class="dm-body">
+        <div class="dm-avatar" style="background:#5865f2;">G</div>
+        <div>
+          <div style="font-weight:bold; margin-bottom:5px;">GamerKing99 <span style="font-size:0.7rem; color:#72767d;">Today at 2:14 PM</span></div>
+          <div style="line-height: 1.5;">
+            <span class="clickable-flag" onclick="flagFound(this, 'Random DMs offering expensive things for free are almost always scams.')">Yo! I accidentally bought an extra Discord Nitro subscription for 1 year.</span><br><br>
+            I don't need it, so <span class="clickable-flag" onclick="flagFound(this, 'Scammers try to pressure you by saying you are the first one they asked.')">first person to click gets it!</span><br><br>
+            <span class="clickable-flag" onclick="flagFound(this, 'Typosquatting URL (dlscord instead of discord).')">https://dlscord-gift.com/claim/x8H2k9L</span>
+          </div>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-popup">
+      <div class="popup-header">
+        <span>Windows Defender Alert</span>
+        <span>✕</span>
+      </div>
+      <div class="popup-body">
+        <div style="font-size:3rem; margin-bottom:10px;">⚠️</div>
+        <h3 style="color:var(--danger); margin-bottom:10px;"><span class="clickable-flag" onclick="flagFound(this, 'Scareware uses terrifying language to bypass your logic.')">CRITICAL SYSTEM INFECTION</span></h3>
+        <p style="margin-bottom:20px;">Your PC is infected with <span class="clickable-flag" onclick="flagFound(this, 'Web browsers cannot scan your hard drive. Popups claiming to find viruses are fake.')">5 Trojans and Spyware. Your data is being stolen.</span></p>
+        <p style="font-weight:bold; margin-bottom:20px;">DO NOT RESTART YOUR COMPUTER.</p>
+        <div style="background:#f5f5f5; padding:10px; border:1px solid #ddd; margin-bottom:20px;">
+          Call Tech Support Immediately:<br>
+          <strong style="font-size:1.2rem; color:#0070ba;"><span class="clickable-flag" onclick="flagFound(this, 'Microsoft or Apple will NEVER ask you to call a random 1-800 number via a pop-up.')">1-800-449-3321</span></strong>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-email">
+      <div class="email-header">
+        <div class="email-row"><strong>From:</strong> Google HR &lt;<span class="clickable-flag" onclick="flagFound(this, 'Big companies do not use free @gmail.com addresses for official hiring.')">google.careers2026@gmail.com</span>&gt;</div>
+        <div class="email-row"><strong>Subject:</strong> Remote Internship Offer - $45/hr!</div>
+      </div>
+      <div class="email-body">
+        <p>Congratulations!</p>
+        <p>After reviewing your resume online, we are excited to offer you a remote Data Entry internship. <span class="clickable-flag" onclick="flagFound(this, 'Too good to be true: High pay for a simple job with no interview.')">You will be paid $45 per hour and require no prior experience.</span></p>
+        <p>To secure your spot and receive your company laptop, <span class="clickable-flag" onclick="flagFound(this, 'Advance-fee scam: Legitimate jobs NEVER ask you to pay money to get hired.')">you must first pay a $50 processing fee for the background check.</span></p>
+        <div style="text-align: center; margin: 20px 0;">
+          <span class="btn-fake">PAY PROCESSING FEE</span>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-phone">
+      <div class="phone-header">Bank Fraud Alert</div>
+      <div class="phone-body">
+        <div class="sms-bubble">
+          <span class="clickable-flag" onclick="flagFound(this, 'Urgent financial threat designed to make you act without thinking.')">Did you attempt a Zelle transfer of $850.00 to John Doe?</span><br><br>
+          If NO, reply N.
+        </div>
+        <div class="sms-bubble" style="background:#007aff; color:white; align-self:flex-end;">N</div>
+        <div class="sms-bubble">
+          To stop this transfer, <span class="clickable-flag" onclick="flagFound(this, 'Scammers trigger a password reset on your account, then ask YOU to send them the code.')">please reply with the 6-digit verification code</span> we just sent to your device. <span class="clickable-flag" onclick="flagFound(this, 'Banks explicitly state they will NEVER ask for your 2FA code over text.')">Do not share this code with anyone.</span>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-dm" style="background:#fff; color:#000;">
+      <div class="dm-header" style="background:#fafafa; color:#000; border-bottom:1px solid #dbdbdb;">@BestFriend99</div>
+      <div class="dm-body">
+        <div class="dm-avatar" style="background:#e1306c;">BF</div>
+        <div>
+          <div style="font-weight:bold; margin-bottom:5px;">BestFriend99</div>
+          <div style="line-height: 1.5; color:#262626;">
+            <span class="clickable-flag" onclick="flagFound(this, 'High emotional manipulation. Hackers hijack friends accounts to send these.')">OMG is this you in this video??? 😭😭 Everyone is sharing it!</span><br><br>
+            <span class="clickable-flag" onclick="flagFound(this, 'Fake login page designed to steal your Instagram credentials.')">http://instagram-login-secure.com/video-leak</span><br><br>
+            <span class="clickable-flag" onclick="flagFound(this, 'Pressuring you to act fast before you check the URL.')">You need to delete this right now before more people see it!</span>
+          </div>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-email">
+      <div class="email-header">
+        <div class="email-row"><strong>From:</strong> Netflix Support &lt;<span class="clickable-flag" onclick="flagFound(this, 'Real Netflix emails come from @netflix.com, not hyphenated domains.')">billing@netflix-update-alert.com</span>&gt;</div>
+        <div class="email-row"><strong>Subject:</strong> Payment Declined - Update Required</div>
+      </div>
+      <div class="email-body">
+        <p><span class="clickable-flag" onclick="flagFound(this, 'Generic greeting instead of your actual profile name.')">Hi there,</span></p>
+        <p>We were unable to process your last payment. Your subscription will be canceled at the end of the day.</p>
+        <p>Please update your payment details immediately to avoid losing access to your favorite shows.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <span class="clickable-flag btn-fake" onclick="flagFound(this, 'Suspicious non-official domain for payment update.')">UPDATE PAYMENT METHOD</span>
+          <div style="font-size:0.7rem; color:gray; margin-top:5px;">(Link: http://netflix.billing-update-99.com/login)</div>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-email">
+      <div class="email-header">
+        <div class="email-row"><strong>From:</strong> IT Helpdesk &lt;<span class="clickable-flag" onclick="flagFound(this, 'Official school emails end in .edu or .edu.my, not .org.')">admin@university-portal.org</span>&gt;</div>
+        <div class="email-row"><strong>Subject:</strong> Mandatory Password Reset</div>
+      </div>
+      <div class="email-body">
+        <p><span class="clickable-flag" onclick="flagFound(this, 'Impersonal greeting from what should be an internal university department.')">Attention Student,</span></p>
+        <p>Due to a recent security update, all students must reset their portal passwords.</p>
+        <p>Failure to do so will result in immediate lockout from the campus Wi-Fi and student dashboard.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <span class="clickable-flag btn-fake" onclick="flagFound(this, 'IT departments do not use URL shorteners (like bit.ly) for official password resets.')">RESET PASSWORD</span>
+          <div style="font-size:0.7rem; color:gray; margin-top:5px;">(Link: http://bit.ly/univ-reset-332)</div>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    htmlContent: `
+    <div class="fake-dm" style="background:#15202b;">
+      <div class="dm-header" style="background:#15202b; border-bottom:1px solid #38444d;">MrBeast Official <span style="color:#1d9bf0; margin-left:5px;">✔️</span></div>
+      <div class="dm-body">
+        <div class="dm-avatar" style="background:#1da1f2;">MB</div>
+        <div>
+          <div style="font-weight:bold; margin-bottom:5px; color:#fff;">
+            MrBeast 
+            <span class="clickable-flag" onclick="flagFound(this, 'Scammers buy verified checkmarks to look legitimate.')" style="color:#1d9bf0;">✔️ @MrBeast_Real_Giveaway</span>
+          </div>
+          <div class="dm-message" style="color:#fff; line-height: 1.5;">
+            <span class="clickable-flag" onclick="flagFound(this, 'Celebrities do not randomly message fans offering double returns on crypto.')">I am giving back to my fans! Send any amount of Bitcoin to my wallet below and I will send DOUBLE back immediately!</span><br><br>
+            Wallet Address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa<br><br>
+            <span class="clickable-flag" onclick="flagFound(this, 'Fake scarcity to force you to send money without verifying.')">Hurry, this event ends in 30 minutes and only the first 100 people get paid!</span>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }
+];
+
+function openMinigame() {
+  currentMgLevel = 0;
+  document.getElementById('minigameOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  loadMgScenario();
+}
+
+function loadMgScenario() {
+  flagsFound = 0;
+  document.getElementById('flagsCount').textContent = '0';
+  document.getElementById('mgProgressFill').style.width = '0%';
+  document.getElementById('mgFeedback').innerHTML = '';
+  
+  const displayLevel = document.getElementById('mgLevelDisplay');
+  if(displayLevel) displayLevel.textContent = `(SCENARIO ${currentMgLevel + 1} OF ${mgScenarios.length})`;
+  
+  const s = mgScenarios[currentMgLevel];
+  const mgBody = document.getElementById('mgBodyContainer');
+  if(mgBody) mgBody.innerHTML = s.htmlContent;
+}
+
+function flagFound(element, rationale) {
+  if (element.classList.contains('found')) return; 
+
+  element.classList.add('found');
+  flagsFound++;
+  
+  document.getElementById('flagsCount').textContent = flagsFound;
+  document.getElementById('mgProgressFill').style.width = (flagsFound / 3) * 100 + '%';
+  
+  const feedback = document.getElementById('mgFeedback');
+  feedback.innerHTML = `<strong>FLAG ISOLATED:</strong> <span style="color:white;">${rationale}</span>`;
+
+  totalPlayerXP += 25;
+  const navXpEl = document.getElementById('navXpCount');
+  if (navXpEl) navXpEl.textContent = totalPlayerXP + " XP";
+
+  if (flagsFound === 3) {
+    if (currentMgLevel < mgScenarios.length - 1) {
+        feedback.innerHTML += `
+          <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">SCENARIO SECURED!</span><br>All phishing indicators identified. You earned +75 Bonus XP!
+            <br><button class="btn-primary" style="margin-top:10px; padding:10px 20px; font-size:0.7rem; background:var(--neon2);" onclick="nextMgScenario()">NEXT SIMULATION →</button>
+          </div>
+        `;
+    } else {
+        feedback.innerHTML += `
+          <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <span style="color:var(--neon2); font-weight:bold; font-size:1.1rem;">TRAINING COMPLETE!</span><br>You have mastered all 10 threat scenarios.
+            <br><button class="btn-primary" style="margin-top:10px; padding:10px 20px; font-size:0.7rem; background:var(--neon2);" onclick="closeMinigame()">FINISH SIMULATION</button>
+          </div>
+        `;
+    }
+  }
+}
+
+function nextMgScenario() {
+    currentMgLevel++;
+    loadMgScenario();
+}
+
+function closeMinigame() {
+  const overlay = document.getElementById('minigameOverlay');
+  if(overlay) overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
