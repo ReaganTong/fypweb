@@ -1,6 +1,6 @@
 // ========== SUPABASE CONFIGURATION ==========
-const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co'; 
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://niskjnpwpejqsrwgpkqe.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pc2tqbnB3cGVqcXNyd2dwa3FlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY3MDgxMTksImV4cCI6MjA4MjI4NDExOX0.7DyzhGvT2AGlaIIjv0F9iOV-OuccVkOg1yBmQR-ksr8';
 
 let supabaseClient = null;
 try {
@@ -231,7 +231,9 @@ function selectAnswer(index, btn) {
   if (answered) return;
   answered = true;
 
-  const q = quizData[currentChapter].questions[currentQ];
+  // 修复点：在这里重新获取当前关卡的数据
+  const data = quizData[currentChapter]; 
+  const q = data.questions[currentQ];
   const allBtns = document.querySelectorAll('.option-btn');
 
   allBtns.forEach(b => b.disabled = true);
@@ -257,9 +259,12 @@ function selectAnswer(index, btn) {
   }
   
   document.getElementById('scoreDisplay').textContent = score;
+  // 修复点：使用重新获取的 data 计算进度
   document.getElementById('xpFill').style.width = Math.min((xp / (data.questions.length * 50)) * 100, 100) + '%';
   document.getElementById('xpCount').textContent = xp + ' XP';
-  document.getElementById('nextBtn').classList.add('show');
+  
+  // 这行代码现在可以正常运行了
+  document.getElementById('nextBtn').classList.add('show'); 
 }
 
 function nextQuestion() {
@@ -395,31 +400,66 @@ window.addEventListener('load', () => {
     }, 12000);
 });
 
-function closeInitialScam(wasClicked) {
+async function closeInitialScam(wasClicked) {
     const overlay = document.getElementById('initial-scam-overlay');
     overlay.style.display = 'none';
+    
+    let result = wasClicked ? 'Failed' : 'Passed';
+    
+    // 存入 Supabase
+    if (supabaseClient) {
+        await supabaseClient.from('behavior_logs').insert({
+            unique_id: sessionId,
+            event_type: 'Starter Bonus Trap',
+            action: result
+        });
+    }
+
     if(wasClicked) {
-        triggerHackerSim("LOGIC ERROR: You clicked a random 'Bonus XP' button. In the real world, this installs malware on your device. Never trust free pop-ups.");
+        triggerHackerSim("LOGIC ERROR: You clicked a random 'Bonus XP' button...");
     } else {
-        alert("🎯 EXCELLENT VIGILANCE!\nYou successfully identified and avoided a phishing threat. (+50 Bonus XP)");
+        alert("🎯 EXCELLENT VIGILANCE!");
         grantGlobalXP(50);
     }
 }
 
-function handleCookieTrap(accepted) {
+async function handleCookieTrap(accepted) {
     const banner = document.getElementById('evil-cookie-banner');
     banner.style.bottom = '-200px'; 
+    
+    let result = accepted ? 'Failed' : 'Passed';
+
+    // 存入 Supabase
+    if (supabaseClient) {
+        await supabaseClient.from('behavior_logs').insert({
+            unique_id: sessionId,
+            event_type: 'Cookie Privacy Trap',
+            action: result
+        });
+    }
+
     if (accepted) {
-        triggerHackerSim("PRIVACY BREACH: You clicked 'Accept All' without reading. The fine print stated you were sharing your location and microphone data.");
+        triggerHackerSim("PRIVACY BREACH: You clicked 'Accept All'...");
     } else {
-        alert("🛡️ PRIVACY DEFENDED!\nYou chose to manage your preferences instead of blindly handing over your data. (+25 Bonus XP)");
+        alert("🛡️ PRIVACY DEFENDED!");
         grantGlobalXP(25);
     }
 }
 
-function handleSupportTrap() {
+async function handleSupportTrap() {
     const widget = document.getElementById('fake-support-widget');
     widget.style.transform = 'translateY(150px)'; 
+    
+    // 1. 存入 Supabase：记录用户中计的行为
+    if (supabaseClient) {
+        await supabaseClient.from('behavior_logs').insert({
+            unique_id: sessionId,
+            event_type: 'Support Widget Trap',
+            action: 'Failed' // 只要点击就是中计了
+        });
+    }
+    
+    // 2. 触发视觉惩罚
     triggerHackerSim("SCAREWARE TRIGGERED: That wasn't a real support agent. Scammers inject fake chat boxes to make you panic and click malicious links.");
 }
 
