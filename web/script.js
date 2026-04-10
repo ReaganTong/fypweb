@@ -35,18 +35,18 @@ const quizData = {
     color: "var(--neon)",
     questions: [
       { 
-        q: "To protect your Student Portal, which password logic is mathematically the hardest for a hacker to crack?", 
-        options: ["Short & Complex (Uts@2026)", "Personal Info (Reagan_030628)", "Long Passphrase (Sibu_Kampua_Enak!)", "Standard Pattern (Password_123!)"], 
+        q: "Applying the principle of 'Entropy', which password strategy makes it mathematically hardest for a hacker's bot to guess?", 
+        options: ["Adding symbols to short words (Uts@2026)", "Using significant personal dates (Reagan_030628)", "Using a long, memorable passphrase (Sibu_Kampua_Enak!)", "Following a common keyboard pattern (Password_123!)"], 
         answer: 2, 
-        explanation: "The logic here is Entropy. Computers can guess symbols fast, but length slows them down exponentially. A long sentence is easy for you to remember but mathematically impossible for a bot to guess.",
-        tip: "Think Length > Complexity." 
+        explanation: "Entropy Logic: Length is the ultimate defense. Increasing character count slows down cracking software exponentially. A passphrase is easy for you to remember but a nightmare for a machine to brute-force.",
+        tip: "Length creates the strongest mathematical barrier." 
       },
       { 
-        q: "What is the primary danger of using the exact same password for Mobile Legends and your Instagram?", 
-        options: ["Account loading delays", "Credential Stuffing attacks", "Social media shadowbans", "2FA will stop working"], 
+        q: "If you use the same password for multiple accounts, how does the 'Credential Stuffing' logic affect your security?", 
+        options: ["It makes your internet connection slower", "One security breach on a weak site leads to total account loss", "It triggers a social media shadowban", "It only affects the account that was hacked"], 
         answer: 1, 
-        explanation: "Hackers use 'Credential Stuffing' logic: if they steal your password from a small, weak website (like a game forum), they will immediately try that same password on your IG, Gmail, and Bank. One leak equals total loss.",
-        tip: "Unique passwords isolate your risks." 
+        explanation: "Credential Stuffing Logic: Hackers assume people reuse passwords. If they steal your password from a low-security site, they will immediately 'stuff' it into your Bank, IG, and Gmail. Unique passwords isolate the damage.",
+        tip: "A single password is a single point of failure." 
       }
     ]
   },
@@ -56,53 +56,39 @@ const quizData = {
     color: "var(--neon2)",
     questions: [
       { 
-        q: "A WhatsApp message from {BRAND} claims you won RM50. It includes a link to claim. Your logical move?", 
-        options: ["Click to check", "Verify only via the official App", "Forward to friends", "Use a fake phone number"], 
+        q: "You receive a message from {BRAND} about a reward. According to the 'App-First' rule, what is the ONLY safe way to confirm this?", 
+        options: ["Click the link to see the official terms", "Manually open the official App and check notifications", "Reply to the message asking for proof", "Ask a friend if they received the same link"], 
         answer: 1, 
-        explanation: "The 'App-First' logic: Official platforms will NEVER send a link in a chat to give you money. If a message has a link, it is a redirect trap. Always close the chat and open the official App manually to check your notifications.",
-        tip: "If it's real, it's in the App." 
+        explanation: "The App-First Rule: Official platforms like S Pay Global or Grab never use external links in a chat to give you money. The app is the only 'Trusted Environment'. If it's not in the app, it's a scam.",
+        tip: "Trust the App, never the link." 
       },
       { 
-        q: "An SMS says your parcel to Sarikei is held for a RM1.50 fee. Why is this 'low fee' so dangerous?", 
-        options: ["The fee is too high", "It is a credit card data harvester", "Courier apps are always free", "It tracks your GPS"], 
+        q: "A parcel scam asks for a tiny RM1.50 'redelivery fee'. What is the 'Low-Friction' trap being used here?", 
+        options: ["The fee is too high for a student to afford", "The small amount lowers your suspicion to steal your card details", "Courier services are always 100% free in Sarawak", "The link tracks your GPS location in real-time"], 
         answer: 1, 
-        explanation: "Scammers use 'Low Friction' logic. They ask for a tiny amount (RM1.50) so you don't think twice before entering your credit card details. Once you type them, they capture your full card info for massive future thefts.",
-        tip: "Never pay fees via SMS links." 
-      },
-      { 
-        q: "A TikTok ad for a high-interest savings account asks you to download an APK file. Why is this a red flag?", 
-        options: ["APK files are for iPhones only", "Banks don't run ads", "Third-party APKs bypass phone security", "The interest rate is too low"], 
-        answer: 2, 
-        explanation: "The 'Trusted Source' logic: APK files installed directly from browsers bypass the security scans of official app stores. These files often contain 'SmsSpy' malware which silently reads and steals your Bank OTPs from your text messages.",
-        tip: "Only install from official stores." 
+        explanation: "Low-Friction Logic: Scammers don't want your RM1.50; they want your credit card numbers. By asking for a tiny fee, they hope you will type in your card info without thinking, enabling much larger future thefts.",
+        tip: "Small fees are often bait for big data theft." 
       }
     ]
   },
   3: {
-    title: "Permission Logic",
+    title: "Privacy & Permissions",
     label: "// MISSION 03",
     color: "var(--neon3)",
     questions: [
       { 
-        q: "A simple 'Compass App' requests access to your 'Contacts'. Which principle does this violate?", 
-        options: ["The Speed Principle", "The Least Privilege Principle", "The Open Source Rule", "The Data Sync Rule"], 
+        q: "A basic flashlight app requests access to your 'Location' and 'Contacts'. Which core security principle does this violate?", 
+        options: ["The Speed Principle", "The Principle of Least Privilege", "The Open Source Rule", "The Data Synchronization Rule"], 
         answer: 1, 
-        explanation: "The logic of 'Least Privilege': An app should ONLY have the permissions it needs to function. A compass needs GPS, not your friends' phone numbers. If it asks for more, it is likely harvesting and selling your data.",
-        tip: "Question every permission." 
+        explanation: "Least Privilege Logic: An app should only have the permissions it absolutely needs to function. A flashlight doesn't need your contacts. If it asks for unrelated permissions, it is likely harvesting your data.",
+        tip: "If the permission doesn't fit the function, deny it." 
       },
       { 
-        q: "Why is it risky to log into your bank while using 'Free Wi-Fi' at a cafe in Sibu?", 
-        options: ["The Wi-Fi is too slow", "Risk of a Man-in-the-Middle attack", "Your battery will drain", "Cafe Wi-Fi is only for browsing"], 
+        q: "When using 'Free Public Wi-Fi' in a cafe, what is the 'Man-in-the-Middle' logic that puts your banking data at risk?", 
+        options: ["Public Wi-Fi is too slow to support encryption", "An attacker can intercept and read every piece of data you send", "Your device's battery will drain faster on public networks", "Public Wi-Fi is only meant for social media, not banking"], 
         answer: 1, 
-        explanation: "The 'Evil Twin' logic: A hacker can easily create a Wi-Fi hotspot with the exact same name as the cafe. If you connect, they act as a 'Man-in-the-Middle', seeing and recording everything you type into your banking app.",
-        tip: "Use Mobile Data for sensitive tasks." 
-      },
-      { 
-        q: "You post a selfie at the UTS campus, but your Student ID is visible in the background. Why must you blur it?", 
-        options: ["To look more professional", "To prevent identity theft via barcodes", "To hide your age", "To avoid school punishment"], 
-        answer: 1, 
-        explanation: "The 'Digital Footprint' logic: Barcodes and IDs contain encoded personal data that can be used to track your location, clone your student card, or find your home address. Once posted online, you can never fully delete it.",
-        tip: "The background matters as much as your face." 
+        explanation: "The Man-in-the-Middle: An attacker can create a fake hotspot with the same name as the cafe. If you connect, all your traffic passes through them first, allowing them to record your passwords.",
+        tip: "Use a VPN or Mobile Data for sensitive tasks." 
       }
     ]
   },
@@ -112,18 +98,18 @@ const quizData = {
     color: "var(--neon4)",
     questions: [
       { 
-        q: "An email warns your account will be banned in 1 hour if you don't click 'Verify'. Why the 1-hour limit?", 
-        options: ["System server resets", "To force 'Panic-Mode' thinking", "Official policy rule", "To save storage space"], 
+        q: "A scam message says you must 'ACT NOW' within 10 minutes. Why is 'Urgency' the scammer's best friend?", 
+        options: ["Servers need to reset every 10 minutes", "Panic bypasses the logical, critical-thinking part of your brain", "It is an official security policy for all platforms", "It ensures the system doesn't overload with users"], 
         answer: 1, 
-        explanation: "The 'Urgency' logic: Fear and rush bypass the logical part of your brain. If you are panicked, you won't stop to notice the fake sender email address. Real companies give you days or weeks to resolve issues, never one hour.",
-        tip: "Panic is the scammer's best friend." 
+        explanation: "Urgency Logic: When panicked, you focus on the threat and stop noticing red flags like fake email addresses. Scammers use time pressure to force you into making a mistake.",
+        tip: "High urgency is a high-level red flag." 
       },
       { 
-        q: "You are being harassed in a group chat. What is the most important first step to ensure the harasser can be held accountable?", 
-        options: ["Argue back to show strength", "Delete the chat and block them", "Take screenshots of the messages and their profile", "Ignore it and hope it goes away"], 
+        q: "To hold a cyberbully accountable, what is the 'Digital Evidence' logic you must follow before blocking them?", 
+        options: ["Delete the chat so they can't see your reaction", "Insult them back to show you are not afraid", "Capture screenshots of the messages and their ID profile", "Ignore the messages until the person gets bored"], 
         answer: 2, 
-        explanation: "The logic of Digital Evidence: Platform moderators cannot act on your word alone. Deleting the chat removes the proof. You must capture screenshots of the specific messages and the bully's profile to create a valid evidence trail for a report.",
-        tip: "Screenshots are your primary defense." 
+        explanation: "Evidence Logic: Moderators and police cannot act on your word alone. Deleting the chat removes the proof. You must capture clear screenshots of the messages and the bully's unique ID to build a valid case.",
+        tip: "Screenshots are the only receipts in the digital world." 
       }
     ]
   }
@@ -153,10 +139,28 @@ window.addEventListener('load', () => {
 // ========== NAVIGATION & QUIZ LOGIC ==========
 function scrollToChapters() {
   const idInput = document.getElementById('participantId');
-  if (idInput && idInput.value.trim() !== '') {
-    sessionId = idInput.value.trim();
+  const mainContent = document.getElementById('main-content');
+  
+  // 1. 验证：如果输入框是空的，或者全是空格
+  if (!idInput || idInput.value.trim() === "") {
+    alert("ACCESS DENIED: Please enter your Name / Unique ID to initialize the simulation.");
+    idInput.focus(); // 自动把光标移回输入框
+    return; // 结束函数，不执行跳转，也不解锁
   }
-  document.getElementById('chapters').scrollIntoView({ behavior: 'smooth' });
+
+  // 2. 验证通过：保存 ID 供数据库使用
+  sessionId = idInput.value.trim();
+  
+  // 3. 关键：显示原本隐藏的下方内容
+  if (mainContent) {
+    mainContent.style.display = 'block';
+  }
+
+  // 4. 执行跳转：现在下方内容已经存在了，可以顺利划到章节位置
+  const target = document.getElementById('chapters');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function openQuiz(chapter) {
