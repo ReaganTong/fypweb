@@ -349,35 +349,16 @@ function triggerHackerSim(message) {
     const textEl = document.getElementById('hacker-text');
     if(!overlay || !textEl) return;
     
+    // 显示提示框
     overlay.style.display = 'block';
-    textEl.innerHTML = "";
     
-    let logs = [
-        "> [SYSTEM ALERT] UNAUTHORIZED DATA UPLOAD DETECTED",
-        "> BYPASSING FIREWALL...",
-        "> ACCESSING: /Users/Local_Device/Contacts.json",
-        "> UPLOADING 243 CONTACTS TO EXTERNAL SERVER...",
-        "> HARVESTING: Precise_Location_GPS...",
-        "> LOCATION PINPOINTED: Sarawak, Malaysia",
-        "> ENCRYPTING DRIVE...",
-        "--------------------------------------------------",
-        "<span style='color:red; font-weight:bold;'>" + message + "</span>",
-        "--------------------------------------------------",
-        "> REBOOTING IN SAFE MODE IN 4 SECONDS..."
-    ];
+    // 直接放入你想提示的文字，不再用缓慢的打字机效果
+    textEl.innerHTML = "<strong>ACTION FAILED:</strong><br>" + message;
     
-    let i = 0;
-    const interval = setInterval(() => {
-        textEl.innerHTML += logs[i] + "<br><br>";
-        i++;
-        if(i >= logs.length) {
-            clearInterval(interval);
-            setTimeout(() => { 
-                overlay.style.display = 'none'; 
-                textEl.innerHTML = ""; 
-            }, 5000);
-        }
-    }, 600);
+    // 4秒钟后，提示框自动消失
+    setTimeout(() => { 
+        overlay.style.display = 'none'; 
+    }, 4000);
 }
 
 // ========== RANDOM ENCOUNTER TRAPS LOGIC ==========
@@ -390,7 +371,7 @@ async function closeInitialScam(wasClicked) {
     
     // 1. 优先触发反馈，确保参与者看到训话
     if(wasClicked) {
-        triggerHackerSim("LOGIC ERROR: You clicked a random 'Bonus XP' button...");
+        triggerHackerSim("IMPULSE CLICK DETECTED: If it's too good to be true, it is malware. Never click unsolicited reward links.");
     } else {
         alert("🎯 EXCELLENT VIGILANCE!");
         grantGlobalXP(50);
@@ -414,7 +395,7 @@ async function handleCookieTrap(accepted) {
 
     // 1. 先给反馈，不让用户等
     if (accepted) {
-        triggerHackerSim("PRIVACY BREACH: You clicked 'Accept All'...");
+        triggerHackerSim("PRIVACY BREACH: You didn't read the terms. You just legally consented to sharing your precise location and contacts.");
     } else {
         alert("🛡️ PRIVACY DEFENDED!");
         grantGlobalXP(25);
@@ -435,7 +416,7 @@ async function handleSupportTrap() {
     if(widget) widget.style.transform = 'translateY(150px)'; 
     
     // 1. 先触发训诫反馈
-    triggerHackerSim("SCAREWARE TRIGGERED: That wasn't a real support agent. Scammers inject fake chat boxes to make you panic.");
+    triggerHackerSim("SCAREWARE TRIGGERED: Scammers use fake support widgets to bypass your logic with fear. Verify before you trust.");
 
     // 2. 静默上传数据
     if (supabaseClient) {
