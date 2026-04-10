@@ -119,11 +119,11 @@ const quizData = {
         tip: "Panic is the scammer's best friend." 
       },
       { 
-        q: "A friend DMs you on Discord: 'OMG, is this you in this video?? [Link]'. Why MUST you call them before clicking?", 
-        options: ["To see if the video is funny", "To verify their account hasn't been hacked", "To ask for the video name", "To check their data connection"], 
-        answer: 1, 
-        explanation: "The 'Social Trust' logic: Scammers hack one person, then send phishing links to everyone on their friends list. If a message looks out of character, always verify it via a completely different channel (like a phone call).",
-        tip: "Verify outside the chat." 
+        q: "You are being harassed in a group chat. What is the most important first step to ensure the harasser can be held accountable?", 
+        options: ["Argue back to show strength", "Delete the chat and block them", "Take screenshots of the messages and their profile", "Ignore it and hope it goes away"], 
+        answer: 2, 
+        explanation: "The logic of Digital Evidence: Platform moderators cannot act on your word alone. Deleting the chat removes the proof. You must capture screenshots of the specific messages and the bully's profile to create a valid evidence trail for a report.",
+        tip: "Screenshots are your primary defense." 
       }
     ]
   }
