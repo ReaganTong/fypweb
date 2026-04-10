@@ -363,67 +363,76 @@ function triggerHackerSim(message) {
 
 // ========== RANDOM ENCOUNTER TRAPS LOGIC ==========
 
+// ========== 1. 奖励陷阱 ==========
 async function closeInitialScam(wasClicked) {
     const overlay = document.getElementById('initial-scam-overlay');
     if(overlay) overlay.style.display = 'none';
     
     let result = wasClicked ? 'Failed' : 'Passed';
     
-    // 1. 优先触发反馈，确保参与者看到训话
+    // 优先触发反馈
     if(wasClicked) {
-        triggerHackerSim("IMPULSE CLICK DETECTED: If it's too good to be true, it is malware. Never click unsolicited reward links.");
+        triggerHackerSim("BAIT SWALLOWED: Real systems don't hand out free rewards. You just fell for a classic phishing hook.");
     } else {
         alert("🎯 EXCELLENT VIGILANCE!");
         grantGlobalXP(50);
     }
 
-    // 2. 移除 await，让数据在后台默默上传，不影响前端 UI
+    // 存入 Supabase（加上 .then() 强制执行，实现 Fire-and-Forget）
     if (supabaseClient) {
         supabaseClient.from('behavior_logs').insert({
             unique_id: sessionId,
             event_type: 'Starter Bonus Trap',
             action: result
+        }).then(({ error }) => {
+            if(error) console.error("Upload Error:", error);
         });
     }
 }
 
+// ========== 2. Cookie 陷阱 ==========
 async function handleCookieTrap(accepted) {
     const banner = document.getElementById('evil-cookie-banner');
-    banner.style.bottom = '-200px'; 
+    if(banner) banner.style.bottom = '-200px'; 
     
     let result = accepted ? 'Failed' : 'Passed';
 
-    // 1. 先给反馈，不让用户等
+    // 先给反馈
     if (accepted) {
-        triggerHackerSim("PRIVACY BREACH: You didn't read the terms. You just legally consented to sharing your precise location and contacts.");
+        triggerHackerSim("DATA LEAKED: You blindly clicked 'Accept All'. Third-party trackers are now harvesting your digital footprint.");
     } else {
         alert("🛡️ PRIVACY DEFENDED!");
         grantGlobalXP(25);
     }
 
-    // 2. 数据库写入放在后面，不用 await，这样它在后台跑，不影响 UI
+    // 存入 Supabase
     if (supabaseClient) {
         supabaseClient.from('behavior_logs').insert({
             unique_id: sessionId,
             event_type: 'Cookie Privacy Trap',
             action: result
+        }).then(({ error }) => {
+            if(error) console.error("Upload Error:", error);
         });
     }
 }
 
+// ========== 3. 客服陷阱 ==========
 async function handleSupportTrap() {
     const widget = document.getElementById('fake-support-widget');
     if(widget) widget.style.transform = 'translateY(150px)'; 
     
-    // 1. 先触发训诫反馈
-    triggerHackerSim("SCAREWARE TRIGGERED: Scammers use fake support widgets to bypass your logic with fear. Verify before you trust.");
+    // 先触发反馈
+    triggerHackerSim("PHANTOM THREAT: Real admins don't pop up to warn you about 'IP leaks'. You let panic dictate your actions.");
 
-    // 2. 静默上传数据
+    // 存入 Supabase
     if (supabaseClient) {
         supabaseClient.from('behavior_logs').insert({
             unique_id: sessionId,
             event_type: 'Support Widget Trap',
             action: 'Failed'
+        }).then(({ error }) => {
+            if(error) console.error("Upload Error:", error);
         });
     }
 }
