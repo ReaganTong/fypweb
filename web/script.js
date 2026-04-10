@@ -158,7 +158,7 @@ function scrollToChapters() {
   setTimeout(() => {
       const cookieBanner = document.getElementById('evil-cookie-banner');
       if (cookieBanner) cookieBanner.style.bottom = '0';
-  }, 10000);
+  }, 5000);
 }
 
 function openQuiz(chapter) {
@@ -381,22 +381,6 @@ function triggerHackerSim(message) {
 }
 
 // ========== RANDOM ENCOUNTER TRAPS LOGIC ==========
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const overlay = document.getElementById('initial-scam-overlay');
-        if(overlay) overlay.style.display = 'flex';
-    }, 2000);
-
-    setTimeout(() => {
-        const cookieBanner = document.getElementById('evil-cookie-banner');
-        if (cookieBanner) cookieBanner.style.bottom = '0';
-    }, 6000);
-
-    setTimeout(() => {
-        const widget = document.getElementById('fake-support-widget');
-        if (widget) widget.style.transform = 'translateY(0)';
-    }, 12000);
-});
 
 async function closeInitialScam(wasClicked) {
     const overlay = document.getElementById('initial-scam-overlay');
@@ -461,10 +445,6 @@ async function handleSupportTrap() {
             action: 'Failed'
         });
     }
-}
-    
-    // 2. 触发视觉惩罚
-    triggerHackerSim("SCAREWARE TRIGGERED: That wasn't a real support agent. Scammers inject fake chat boxes to make you panic and click malicious links.");
 }
 
 function grantGlobalXP(amount) {
