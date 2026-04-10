@@ -1,12 +1,13 @@
 // ========== SUPABASE CONFIGURATION ==========
 const SUPABASE_URL = 'https://niskjnpwpejqsrwgpkqe.supabase.co'; 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pc2tqbnB3cGVqcXNyd2dwa3FlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY3MDgxMTksImV4cCI6MjA4MjI4NDExOX0.7DyzhGvT2AGlaIIjv0F9iOV-OuccVkOg1yBmQR-ksr8';
+const SUPABASE_ANON_KEY = 'sb_publishable_k9a05Q87dFjgoeZPDFBcpQ_EXO5l4hK'; 
 
 let supabaseClient = null;
 try {
-    if (SUPABASE_URL.startsWith('http')) {
-        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: false } 
+    });
+    console.log("Supabase connected successfully!");
 } catch(e) {
     console.warn("Supabase not fully configured. Running in offline mode.");
 }
@@ -128,39 +129,36 @@ function animateCounter(id, target, suffix = '') {
   }, 30);
 }
 
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    animateCounter('counter-students', 12847);
-    animateCounter('counter-questions', 10); // Changed to 10
-    animateCounter('counter-chapters', 4);
-  }, 500);
-});
-
 // ========== NAVIGATION & QUIZ LOGIC ==========
 function scrollToChapters() {
   const idInput = document.getElementById('participantId');
   const mainContent = document.getElementById('main-content');
   
-  // 1. 验证：如果输入框是空的，或者全是空格
   if (!idInput || idInput.value.trim() === "") {
-    alert("ACCESS DENIED: Please enter your Name / Unique ID to initialize the simulation.");
-    idInput.focus(); // 自动把光标移回输入框
-    return; // 结束函数，不执行跳转，也不解锁
+    alert("ACCESS DENIED: Please enter your Name to initialize.");
+    idInput.focus();
+    return;
   }
 
-  // 2. 验证通过：保存 ID 供数据库使用
-  sessionId = idInput.value.trim();
-  
-  // 3. 关键：显示原本隐藏的下方内容
-  if (mainContent) {
-    mainContent.style.display = 'block';
-  }
+  // 1. 锁定真实的 ID，防止出现 AGENT_xxxx
+  sessionId = idInput.value.trim(); 
+  if (mainContent) mainContent.style.display = 'block';
 
-  // 4. 执行跳转：现在下方内容已经存在了，可以顺利划到章节位置
   const target = document.getElementById('chapters');
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth' });
-  }
+  if (target) target.scrollIntoView({ behavior: 'smooth' });
+
+  // 2. 关键修改：名字确认后，再部署陷阱
+  // 3秒后弹出奖励陷阱
+  setTimeout(() => {
+      const overlay = document.getElementById('initial-scam-overlay');
+      if(overlay) overlay.style.display = 'flex';
+  }, 3000); 
+
+  // 10秒后弹出 Cookie 陷阱
+  setTimeout(() => {
+      const cookieBanner = document.getElementById('evil-cookie-banner');
+      if (cookieBanner) cookieBanner.style.bottom = '0';
+  }, 10000);
 }
 
 function openQuiz(chapter) {
@@ -402,24 +400,25 @@ window.addEventListener('load', () => {
 
 async function closeInitialScam(wasClicked) {
     const overlay = document.getElementById('initial-scam-overlay');
-    overlay.style.display = 'none';
+    if(overlay) overlay.style.display = 'none';
     
     let result = wasClicked ? 'Failed' : 'Passed';
     
-    // 存入 Supabase
-    if (supabaseClient) {
-        await supabaseClient.from('behavior_logs').insert({
-            unique_id: sessionId,
-            event_type: 'Starter Bonus Trap',
-            action: result
-        });
-    }
-
+    // 1. 优先触发反馈，确保参与者看到训话
     if(wasClicked) {
         triggerHackerSim("LOGIC ERROR: You clicked a random 'Bonus XP' button...");
     } else {
         alert("🎯 EXCELLENT VIGILANCE!");
         grantGlobalXP(50);
+    }
+
+    // 2. 移除 await，让数据在后台默默上传，不影响前端 UI
+    if (supabaseClient) {
+        supabaseClient.from('behavior_logs').insert({
+            unique_id: sessionId,
+            event_type: 'Starter Bonus Trap',
+            action: result
+        });
     }
 }
 
@@ -429,35 +428,40 @@ async function handleCookieTrap(accepted) {
     
     let result = accepted ? 'Failed' : 'Passed';
 
-    // 存入 Supabase
-    if (supabaseClient) {
-        await supabaseClient.from('behavior_logs').insert({
-            unique_id: sessionId,
-            event_type: 'Cookie Privacy Trap',
-            action: result
-        });
-    }
-
+    // 1. 先给反馈，不让用户等
     if (accepted) {
         triggerHackerSim("PRIVACY BREACH: You clicked 'Accept All'...");
     } else {
         alert("🛡️ PRIVACY DEFENDED!");
         grantGlobalXP(25);
     }
+
+    // 2. 数据库写入放在后面，不用 await，这样它在后台跑，不影响 UI
+    if (supabaseClient) {
+        supabaseClient.from('behavior_logs').insert({
+            unique_id: sessionId,
+            event_type: 'Cookie Privacy Trap',
+            action: result
+        });
+    }
 }
 
 async function handleSupportTrap() {
     const widget = document.getElementById('fake-support-widget');
-    widget.style.transform = 'translateY(150px)'; 
+    if(widget) widget.style.transform = 'translateY(150px)'; 
     
-    // 1. 存入 Supabase：记录用户中计的行为
+    // 1. 先触发训诫反馈
+    triggerHackerSim("SCAREWARE TRIGGERED: That wasn't a real support agent. Scammers inject fake chat boxes to make you panic.");
+
+    // 2. 静默上传数据
     if (supabaseClient) {
-        await supabaseClient.from('behavior_logs').insert({
+        supabaseClient.from('behavior_logs').insert({
             unique_id: sessionId,
             event_type: 'Support Widget Trap',
-            action: 'Failed' // 只要点击就是中计了
+            action: 'Failed'
         });
     }
+}
     
     // 2. 触发视觉惩罚
     triggerHackerSim("SCAREWARE TRIGGERED: That wasn't a real support agent. Scammers inject fake chat boxes to make you panic and click malicious links.");
